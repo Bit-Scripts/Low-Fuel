@@ -64,6 +64,13 @@ if coordonees is not None:
     else:
         radius = 0
 
+while carburant != 'Gazole' and carburant != 'SP98' and carburant != 'SP95' and carburant != 'GPLc' and carburant != 'E10' and carburant != 'E85':
+    print('\nQuel est votre Carburant')
+    print('(Gazole, SP98, SP95, GPLc, E10 ou E85)')
+    carburant = input()
+
+print('\nRecherche de station...')
+
 for pdv in root.findall('pdv'):
     latitudeStation = float(pdv.get('latitude')) / 100000
     longitudeStation = float(pdv.get('longitude')) / 100000
@@ -95,10 +102,6 @@ for pdv in root.findall('pdv'):
             {'Adresse': Adresse, 'Gazole': GazolePrix, 'SP95': SP95Prix, 'E85': E85Prix, 'GPLc': GPLcPrix,
              'E10': E10Prix, 'SP98': SP98Prix})
 if Matched_Cordinates:
-    while carburant != 'Gazole' and carburant != 'SP98' and carburant != 'SP95' and carburant != 'GPLc' and carburant != 'E10' and carburant != 'E85':
-        print('\nQuel est votre Carburant')
-        print('(Gazole, SP98, SP95, GPLc, E10 ou E85)')
-        carburant = input()
     minGazole = 99
     minSP95 = 99
     minE85 = 99
@@ -154,6 +157,15 @@ if Matched_Cordinates:
             minE10Euro = "Carburant non disponible"
         if minSP98 == 99:
             minSP98Euro = "Carburant non disponible"
+
+    print('\n')
+    tableau.field_names = ["Adresse", "Gazole", "SP95", "E85", "GPLc", "E10", "SP98"]
+    for line_Cordinates in Matched_Cordinates:
+        tableau.add_row(
+            [line_Cordinates["Adresse"], line_Cordinates["Gazole"], line_Cordinates["SP95"], line_Cordinates["E85"],
+             line_Cordinates["GPLc"], line_Cordinates["E10"], line_Cordinates["SP98"]])
+    print(tableau)
+    
     if carburant=='Gazole':
         print("\nGazole le moins cher : " + str(minGazoleEuro))
     if carburant=='SP95':    
@@ -166,13 +178,6 @@ if Matched_Cordinates:
         print("\nE10 le moins cher : " + str(minE10Euro))
     if carburant=='SP98':
         print("\nSP98 le moins cher : " + str(minSP98Euro))
-    print('\n')
-    tableau.field_names = ["Adresse", "Gazole", "SP95", "E85", "GPLc", "E10", "SP98"]
-    for line_Cordinates in Matched_Cordinates:
-        tableau.add_row(
-            [line_Cordinates["Adresse"], line_Cordinates["Gazole"], line_Cordinates["SP95"], line_Cordinates["E85"],
-             line_Cordinates["GPLc"], line_Cordinates["E10"], line_Cordinates["SP98"]])
-    print(tableau)
     print('\n')
 else:
     print("\npas de station à proximité dans le rayon définit\n")

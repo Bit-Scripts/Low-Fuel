@@ -24,3 +24,4 @@ def infos_from_station(list_stations: List[SellPoint], prices: List[Price], fuel
                 if station.id == price.id and fuel_type.value == price.name:
                     list_fuel_price.append(station, price)
     return list_fuel_price
+
