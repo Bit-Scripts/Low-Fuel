@@ -10,6 +10,8 @@ from prettytable import PrettyTable
 
 tableau = PrettyTable()
 
+from domain.data import *
+
 locator = Nominatim(user_agent="low-fuel")
 address = ""
 coordonees = 0, 0
@@ -24,6 +26,7 @@ E85Prix = '●●●●●●●'
 GPLcPrix = '●●●●●●●'
 E10Prix = '●●●●●●●'
 SP98Prix = '●●●●●●●'
+carburant = ""
 
 if os.path.exists(zip_path):
     os.remove(zip_path)
@@ -37,19 +40,22 @@ if filename == zip_path:
         root = tree.getroot()
 
 while locator.geocode(address) is None:
-    print('\nEntrer votre adresse postale :')
+    print('\n\nEntrer votre adresse postale :')
     address = input()
     if locator.geocode(address) is None:
         print('\nVotre adresse postale n\'a pas été trouvée')
     else:
         location = locator.geocode(address)
+        print('-------------------------------------')
         print('Coordonnées de votre adresse')
         print((location[1]))
+        print('-------------------------------------')
+
 
 if coordonees is not None:
     coordonees = tuple(float(s) for s in location[1])
 
-    print('rayon d\'action en km')
+    print('\nrayon d\'action en km')
     radius_input = input()
     if not radius_input.isalpha():
         radius_previous = re.findall(r"[-+]?(?:\d*\,\d+|\d+)", radius_input)
@@ -89,6 +95,10 @@ for pdv in root.findall('pdv'):
             {'Adresse': Adresse, 'Gazole': GazolePrix, 'SP95': SP95Prix, 'E85': E85Prix, 'GPLc': GPLcPrix,
              'E10': E10Prix, 'SP98': SP98Prix})
 if Matched_Cordinates:
+    while carburant != 'Gazole' and carburant != 'SP98' and carburant != 'SP95' and carburant != 'GPLc' and carburant != 'E10' and carburant != 'E85':
+        print('\nQuel est votre Carburant')
+        print('(Gazole, SP98, SP95, GPLc, E10 ou E85)')
+        carburant = input()
     minGazole = 99
     minSP95 = 99
     minE85 = 99
@@ -144,19 +154,25 @@ if Matched_Cordinates:
             minE10Euro = "Carburant non disponible"
         if minSP98 == 99:
             minSP98Euro = "Carburant non disponible"
-
-    print("Gazole le moins cher : " + str(minGazoleEuro))
-    print("SP95 le moins cher : " + str(minSP95Euro))
-    print("E85 le moins cher : " + str(minE85Euro))
-    print("GPLc le moins cher : " + str(minGPLcEuro))
-    print("E10 le moins cher : " + str(minE10Euro))
-    print("SP98 le moins cher : " + str(minSP98Euro))
-
+    if carburant=='Gazole':
+        print("\nGazole le moins cher : " + str(minGazoleEuro))
+    if carburant=='SP95':    
+        print("\nSP95 le moins cher : " + str(minSP95Euro))
+    if carburant=='E85': 
+        print("\nE85 le moins cher : " + str(minE85Euro))
+    if carburant=='GPLc':
+        print("\nGPLc le moins cher : " + str(minGPLcEuro))
+    if carburant=='E10':
+        print("\nE10 le moins cher : " + str(minE10Euro))
+    if carburant=='SP98':
+        print("\nSP98 le moins cher : " + str(minSP98Euro))
+    print('\n')
     tableau.field_names = ["Adresse", "Gazole", "SP95", "E85", "GPLc", "E10", "SP98"]
     for line_Cordinates in Matched_Cordinates:
         tableau.add_row(
             [line_Cordinates["Adresse"], line_Cordinates["Gazole"], line_Cordinates["SP95"], line_Cordinates["E85"],
              line_Cordinates["GPLc"], line_Cordinates["E10"], line_Cordinates["SP98"]])
     print(tableau)
+    print('\n')
 else:
-    print("pas de station à proximité dans le rayon définit")
+    print("\npas de station à proximité dans le rayon définit\n")

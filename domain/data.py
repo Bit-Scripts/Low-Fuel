@@ -2,7 +2,7 @@
 from datetime import datetime, time
 from enum import Enum
 from dataclasses import dataclass
-from typing import List
+from typing import List, Union
 
 
 # Gazole, SP95, SP98, GPLc, E10, E85
@@ -50,8 +50,8 @@ class WeekDay(Enum):
 
 @dataclass
 class Hour:
-    opening: (int, int)
-    closing: (int, int)
+    opening: Union[int, int]
+    closing: Union[int, int]
 
 
 @dataclass
