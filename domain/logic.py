@@ -6,8 +6,8 @@ from data import *
 
 def near_stations(latitude: float, longitude: float, radius: int, sell_points: List[SellPoint]):
     list_stations = []
+    home_coordinates = (latitude, longitude)
     for sell_point in sell_points:
-        home_coordinates = (latitude, longitude)
         station_address = sell_point.address
         station_coordinates = (station_address.latitude, station_address.longitude)
         distance = haversine(home_coordinates, station_coordinates)
@@ -16,12 +16,10 @@ def near_stations(latitude: float, longitude: float, radius: int, sell_points: L
     return list_stations
 
 
-def infos_from_station(list_stations: List[SellPoint], prices: List[Price], fuels_type: List[FuelType]):
+def fuel_from_station(list_stations: List[SellPoint]):
     list_fuel_price = []
     for station in list_stations:
-        for price in prices:
-            for fuel_type in fuels_type:
-                if station.id == price.id and fuel_type.value == price.name:
-                    list_fuel_price.append(station, price)
+        for price in station.prices:
+            list_fuel_price.append((station, price.fuel_type, price))
     return list_fuel_price
 

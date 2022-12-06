@@ -2,3 +2,4 @@ wget
 haversine
 geopy
 prettytable
+colorama
