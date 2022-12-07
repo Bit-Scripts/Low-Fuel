@@ -85,7 +85,7 @@ for pdv in root.findall('pdv'):
             nom = ''
         else:
             nom = str(location).split(',')[0] + ' '
-        Adresse = nom + pdv.find('adresse').text + ' ' + pdv.get('cp') + ' ' + pdv.find('ville').text
+        Adresse = pdv.find('adresse').text + ' ' + pdv.get('cp') + ' ' + pdv.find('ville').text
         for prix in list(pdv.iter("prix")):
             if prix.get("nom") == 'Gazole':
                 GazolePrix = prix.get("valeur").replace(".", ",") + " €"
@@ -100,7 +100,7 @@ for pdv in root.findall('pdv'):
             if prix.get("nom") == 'SP98':
                 SP98Prix = prix.get("valeur").replace(".", ",") + " €"
         Matched_Cordinates.append(
-            {'Adresse': Adresse, 'Gazole': GazolePrix, 'SP95': SP95Prix, 'E85': E85Prix, 'GPLc': GPLcPrix,
+            {'Nom': nom, 'Adresse': Adresse, 'Gazole': GazolePrix, 'SP95': SP95Prix, 'E85': E85Prix, 'GPLc': GPLcPrix,
              'E10': E10Prix, 'SP98': SP98Prix})
 if Matched_Cordinates:
     minGazole = 99
@@ -114,37 +114,37 @@ if Matched_Cordinates:
             interGazole = float(re.findall(r"[-+]?(?:\d*\,\d+|\d+)", line_Cordinates["Gazole"])[0].replace(',', '.'))
             if interGazole < float(minGazole):
                 minGazole = interGazole
-                minGazoleEuro = line_Cordinates["Gazole"] + " | disponible à " + line_Cordinates["Adresse"]
+                minGazoleEuro = line_Cordinates["Gazole"] + " | disponible à " + line_Cordinates["Nom"] + line_Cordinates["Adresse"]
 
         if line_Cordinates["SP95"] != '●●●●●●●':
             interSP95 = float(re.findall(r"[-+]?(?:\d*\,\d+|\d+)", line_Cordinates["SP95"])[0].replace(',', '.'))
             if interSP95 < float(minSP95):
                 minSP95 = interSP95
-                minSP95Euro = line_Cordinates["SP95"] + " | disponible à " + line_Cordinates["Adresse"]
+                minSP95Euro = line_Cordinates["SP95"] + " | disponible à " + line_Cordinates["Nom"] + line_Cordinates["Adresse"]
 
         if line_Cordinates["E85"] != '●●●●●●●':
             interE85 = float(re.findall(r"[-+]?(?:\d*\,\d+|\d+)", line_Cordinates["E85"])[0].replace(',', '.'))
             if interE85 < float(minE85):
                 minE85 = interE85
-                minE85Euro = line_Cordinates["E85"] + " | disponible à " + line_Cordinates["Adresse"]
+                minE85Euro = line_Cordinates["E85"] + " | disponible à " + line_Cordinates["Nom"] + line_Cordinates["Adresse"]
 
         if line_Cordinates["GPLc"] != '●●●●●●●':
             interGPLc = float(re.findall(r"[-+]?(?:\d*\,\d+|\d+)", line_Cordinates["GPLc"])[0].replace(',', '.'))
             if interGPLc < float(minGPLc):
                 minGPLc = interGPLc
-                minGPLcEuro = line_Cordinates["GPLc"] + " | disponible à " + line_Cordinates["Adresse"]
+                minGPLcEuro = line_Cordinates["GPLc"] + " | disponible à " + line_Cordinates["Nom"] + line_Cordinates["Adresse"]
 
         if line_Cordinates["E10"] != '●●●●●●●':
             interE10 = float(re.findall(r"[-+]?(?:\d*\,\d+|\d+)", line_Cordinates["E10"])[0].replace(',', '.'))
             if interE10 < float(minE10):
                 minE10 = interE10
-                minE10Euro = line_Cordinates["E10"] + " | disponible à " + line_Cordinates["Adresse"]
+                minE10Euro = line_Cordinates["E10"] + " | disponible à " + line_Cordinates["Nom"] + line_Cordinates["Adresse"]
 
         if line_Cordinates["SP98"] != '●●●●●●●':
             interSP98 = float(re.findall(r"[-+]?(?:\d*\,\d+|\d+)", line_Cordinates["SP98"])[0].replace(',', '.'))
             if interSP98 < float(minSP98):
                 minSP98 = interSP98
-                minSP98Euro = line_Cordinates["SP98"] + " | disponible à " + line_Cordinates["Adresse"]
+                minSP98Euro = line_Cordinates["SP98"] + " | disponible à " + line_Cordinates["Nom"] + line_Cordinates["Adresse"]
 
         if minGazole == 99:
             minGazoleEuro = "Carburant non disponible"
@@ -160,10 +160,10 @@ if Matched_Cordinates:
             minSP98Euro = "Carburant non disponible"
 
     print('\n')
-    tableau.field_names = ["Adresse", "Gazole", "SP95", "E85", "GPLc", "E10", "SP98"]
+    tableau.field_names = ["Nom", "Adresse", "Gazole", "SP95", "E85", "GPLc", "E10", "SP98"]
     for line_Cordinates in Matched_Cordinates:
         tableau.add_row(
-            [line_Cordinates["Adresse"], line_Cordinates["Gazole"], line_Cordinates["SP95"], line_Cordinates["E85"],
+            [line_Cordinates["Nom"], line_Cordinates["Adresse"], line_Cordinates["Gazole"], line_Cordinates["SP95"], line_Cordinates["E85"],
              line_Cordinates["GPLc"], line_Cordinates["E10"], line_Cordinates["SP98"]])
     print(tableau)
     
