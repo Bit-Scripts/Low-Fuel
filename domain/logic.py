@@ -1,6 +1,9 @@
 # Logique Métiers
 from haversine import haversine
 
+from geopy import Nominatim
+locator = Nominatim(user_agent="low-fuel")
+
 from data import *
 
 
@@ -23,3 +26,11 @@ def fuel_from_station(list_stations: List[SellPoint]):
             list_fuel_price.append((station, price.fuel_type, price))
     return list_fuel_price
 
+def coord_to_store_name(latitude: float, logitude:float):
+    location = locator.geocode(str(latitude) + "," + str(longitude))
+    name = str(location).split(',')[0]
+    return name    
+
+def address_to_coord(Address):
+    if locator.geocode(address) is not None:
+        return location[1]
