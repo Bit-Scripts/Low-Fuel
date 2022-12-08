@@ -17,8 +17,9 @@ location = locator.geocode(client_address)
 
 user_address = AddressUser(1, '29 BOULEVARD DE DIJON',  '10800', 'Saint-Julien-les-Villas', 2, location.latitude, location.longitude)
 
+MyParseData = ParseXml(url_data, path_of_file, user_address)
 
-sell_points : list(SellPoint) = ParseXml(url_data, path_of_file, user_address)
+my_sell_points = MyParseData.sell_points
 
-for sell_point in sell_points: 
+for sell_point in my_sell_points: 
     print(str(sell_point.id) + '\n' + sell_point.name + '\n' + sell_point.address + '\n' + str(sell_point.week_hours) + '\n' + str(sell_point.prices) + '\n' + str(sell_point.services))

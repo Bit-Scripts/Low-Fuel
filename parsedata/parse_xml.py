@@ -32,6 +32,7 @@ class ParseXml:
         self.latitudeStation = "" #func 
         self.longitudeStation = "" #func
         self.station_list() #func
+        self.sell_points = None #valeur retourné
 
 
     def remove_old_source(self):
@@ -52,7 +53,7 @@ class ParseXml:
 
 
     def station_list(self):
-        sell_points = [SellPoint]
+        self.sell_points = [SellPoint]
         for pdv in self.root.findall('pdv'):
             self.latitudeStation = float(pdv.get('latitude')) / 100000
             self.longitudeStation = float(pdv.get('longitude')) / 100000
@@ -88,5 +89,5 @@ class ParseXml:
                 print('\n')
                 print(str(sell_point.id) + '\n' + sell_point.name + '\n' + sell_point.address + '\n' + str(sell_point.week_hours) + '\n' + str(sell_point.prices) + '\n' + str(sell_point.services))
                 print('\n')
-                sell_points.append(sell_point)
-        return sell_points
+                self.sell_points.append(sell_point)
+        return self.sell_points
