@@ -1,7 +1,7 @@
 # Classes métiers
+import dataclasses
 from datetime import datetime, time
 from enum import Enum
-from dataclasses import dataclass
 from typing import List, Union, Optional
 
 
@@ -16,7 +16,7 @@ class FuelType(Enum):
     E85 = "E85"
 
 
-@dataclass
+@dataclasses.dataclass
 class Price:
     id: int
     fuel_type: FuelType
@@ -24,7 +24,7 @@ class Price:
     value: float
 
 
-@dataclass
+@dataclasses.dataclass
 class Address:
     street: str
     post_code: int
@@ -33,7 +33,7 @@ class Address:
     longitude: float
 
 
-@dataclass
+@dataclasses.dataclass
 class Service:
     name: str
 
@@ -48,26 +48,26 @@ class WeekDay(Enum):
     SUNDAY = 7, "Dimanche"
 
 
-@dataclass
+@dataclasses.dataclass
 class Hour:
-    opening: Union[int, int]
-    closing: Union[int, int]
+    opening: str
+    closing: str
 
 
-@dataclass
+@dataclasses.dataclass
 class DayHours:
     day: WeekDay
     closed: bool
     hours: List[Hour]
 
 
-@dataclass
+@dataclasses.dataclass
 class WeekHours:
     is_24_24: bool
     day_hours: List[DayHours]
 
 
-@dataclass
+@dataclasses.dataclass
 class SellPoint:
     id: int
     name: Optional[str]

@@ -1,23 +1,27 @@
 import dataclasses
+from typing import Optional
 
 
-@dataclasses
+@dataclasses.dataclass
 class AboutUser:
     id: int
     first_name: str
     last_name: str
 
 
-@dataclasses
+@dataclasses.dataclass
 class AddressUser:
     id: int
     street: str
     post_code: int
     city: str
-    latitude: float
-    longitude: float
+    radius: float
+    latitude: float = 0.0
+    longitude: float = 0.0
 
 
-@dataclasses
+@dataclasses.dataclass
 class TypeOfFuel:
     fuel: str
+
+
