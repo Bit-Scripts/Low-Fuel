@@ -45,7 +45,7 @@ class ParseJson:
 
     def station_list(self):
         self.sell_points: List[SellPoint] = []
-        for first_data in range(0, self.fuel_json.__len__() - 1):
+        for first_data in range(0, self.fuel_json.__len__()):
             self.latitudeStation = self.fuel_json[first_data]["fields"]["geom"][0]
             self.longitudeStation = self.fuel_json[first_data]["fields"]["geom"][1]
             self.station = (self.latitudeStation, self.longitudeStation)
@@ -63,23 +63,53 @@ class ParseJson:
                 
                 week_hours_args_1 = (self.fuel_json[first_data]["fields"]["horaires_automate_24_24"] == "Oui")
                 week_hours_args_2: DayHours = []
-                week_hours_args_weekday = []
-                if "horaire" in list(self.fuel_json[first_data]["fields"].keys()):
-                    week_hours_2 = self.fuel_json[first_data]["fields"]["horaires"]["jour"]["horaire"]
-                    week_hours_args_weekday = []
+                week_hours_args_weekday: List[DayHours] = []
 
-                    for w_h_arg_2 in range(0, week_hours_2.__len__() - 1):
-                        if week_hours_2[w_h_arg_2]["@ferme"] is not None:
-                            week_hours_args_2.append(week_hours_2[w_h_arg_2]["@nom"], 
-                                                        True, 
-                                                        ["00:00", "00:00"])
-                        else:
-                            week_hours_args_2.append(week_hours_2[w_h_arg_2]["@nom"], 
-                                                        False, 
-                                                        [week_hours_2[w_h_arg_2]["@ouverture"], 
-                                                        week_hours_2[w_h_arg_2]["@fermeture"],])
+                if "horaires" in list(self.fuel_json[first_data]["fields"].keys()):
+                    partial_json = self.fuel_json[first_data]["fields"]["horaires"].replace("\\", "")
+                    partial_json_dumps = str(json.dumps(partial_json)[1:][:-1].replace("\\", ""))
+                    fuel_json_loads = json.loads(partial_json_dumps)
+                    print(fuel_json_loads.keys())
+                    if "jour" in list(fuel_json_loads.keys()):
+                        week_hours_2 = fuel_json_loads["jour"]
+                        week_hours_args_weekday: List[DayHours] = []
+
+                        for w_h_arg_2 in range(0, week_hours_2.__len__()):
+                            week_hours_json = week_hours_2[w_h_arg_2]
+                            week_hours_json_dumps = str(json.dumps(week_hours_json))
+                            week_hours_json_loads = json.loads(week_hours_json_dumps)
+                            if "horaire" in list(week_hours_json_loads.keys()):
+                                closed: DayHours.closed = False
+                                print(week_hours_json_loads["horaire"])
+                                if "@ouverture" in week_hours_json_loads["horaire"]:
+                                    closed: False
+                                    opening: Hour.opening = week_hours_json_loads["horaire"]["@ouverture"]
+                                    closing: Hour.closing = week_hours_json_loads["horaire"]["@fermeture"]
+                                else:
+                                    horaire = week_hours_json_loads["horaire"]
+                                    closed: False
+                                    opening = (horaire[0]["@ouverture"], horaire[0]["@fermeture"]) 
+                                    closing = (horaire[1]["@ouverture"], horaire[1]["@fermeture"])
+                                    print(opening)
+                                    print(closing)
+                            elif "@ferme" in list(week_hours_json_loads.keys()):
+                                closed: DayHours.closed = True
+                                opening: Hour.opening = "00:00"
+                                closing: Hour.opening = "00:00"
+                            day: WeekDay = week_hours_json_loads["@nom"]
+                            week_hours_args_2.append((day, 
+                                                    closed, 
+                                                    [opening, 
+                                                    closing]))                     
                 else:                                        
-                    week_hours_args_2 = "horaire non précisé"
+                    day: WeekDay = "horaire non précisé"
+                    closed: DayHours.closed = True
+                    opening: Hour.opening = "00:00"
+                    closing: Hour.opening = "00:00"
+                    week_hours_args_2.append((day, 
+                                              closed, 
+                                              [opening, 
+                                              closing]))
                 week_hours_args_weekday.append(week_hours_args_2)
                 week_hours = WeekHours(week_hours_args_1, week_hours_args_weekday)
                 if "prix_id" in list(self.fuel_json[first_data]["fields"].keys()):
