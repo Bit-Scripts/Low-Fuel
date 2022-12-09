@@ -1,8 +1,8 @@
 # Classes métiers
 import dataclasses
-from datetime import datetime, time
+from datetime import datetime
 from enum import Enum
-from typing import List, Union, Optional
+from typing import List, Optional
 
 
 # Gazole, SP95, SP98, GPLc, E10, E85
@@ -18,7 +18,7 @@ class FuelType(Enum):
 
 @dataclasses.dataclass
 class Price:
-    id: int
+    idPr: int
     fuel_type: FuelType
     last_updated: datetime
     value: float
@@ -69,7 +69,7 @@ class WeekHours:
 
 @dataclasses.dataclass
 class SellPoint:
-    id: int
+    idSP: int
     name: Optional[str]
     address: Address
     week_hours: WeekHours

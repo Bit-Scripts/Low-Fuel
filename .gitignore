@@ -1,0 +1,5 @@
+/info.gouv/*
+/__pycache__
+/domain/__pycache__
+/parsedata/__pycache__
+/.idea
