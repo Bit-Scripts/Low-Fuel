@@ -9,9 +9,7 @@ from domain.data import *
 
 
 def near_stations(home_latitude: float, home_longitude: float, radius: int, id_sell_point: str, sell_point_latitude: int, sell_point_longitude: int):
-    home_coord = (home_latitude, home_longitude)
-    sell_point_coord = (sell_point_latitude, sell_point_longitude)
-    distance = haversine(home_coord, sell_point_coord)
+    distance = distance_between(home_latitude, home_longitude, sell_point_latitude, sell_point_longitude)
     if distance <= radius:
         return True
 
@@ -34,3 +32,10 @@ def address_to_coord(address):
     location = locator.geocode(address, timeout=None)
     if location is not None:
         return location[1]
+
+
+def distance_between(home_latitude: float, home_longitude: float, sell_point_latitude: float, sell_point_longitude: float):
+    home_coord = (home_latitude, home_longitude)
+    sell_point_coord = (sell_point_latitude, sell_point_longitude)
+    distance = haversine(home_coord, sell_point_coord)
+    return distance

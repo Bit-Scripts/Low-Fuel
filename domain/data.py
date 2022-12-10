@@ -75,3 +75,4 @@ class SellPoint:
     week_hours: WeekHours
     prices: List[Price]
     services: List[Service]
+    distance: float

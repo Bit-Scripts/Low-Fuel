@@ -127,13 +127,14 @@ class ParseJson:
                         ensemble_services.append(service)
                 else:
                     ensemble_services.append("Pas de service particuliers proposé")               
-
+                distance = distance_between(self.coord_domicile[0], self.coord_domicile[1], self.latitudeStation, self.longitudeStation)
                 sell_point = SellPoint(self.fuel_json[first_data]["fields"]["id"], 
                                        nom, 
                                        address, 
                                        week_hours, 
                                        list_of_prices,
-                                       ensemble_services)  # object to return
+                                       ensemble_services, 
+                                       distance)  # object to return
                 print("Please wait... is loading")
 
                 self.sell_points.append(sell_point)

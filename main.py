@@ -33,4 +33,5 @@ for pdv in my_sell_points:
     print(str(pdv.week_hours) + '\n')
     print(str(pdv.prices) + '\n')
     print(str(pdv.services) + '\n')
+    print(str(pdv.distance) + '\n')
     print("------------------------------------------------------------")
