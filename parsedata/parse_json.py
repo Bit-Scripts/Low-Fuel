@@ -69,7 +69,6 @@ class ParseJson:
                     partial_json = self.fuel_json[first_data]["fields"]["horaires"].replace("\\", "")
                     partial_json_dumps = str(json.dumps(partial_json)[1:][:-1].replace("\\", ""))
                     fuel_json_loads = json.loads(partial_json_dumps)
-                    print(fuel_json_loads.keys())
                     if "jour" in list(fuel_json_loads.keys()):
                         week_hours_2 = fuel_json_loads["jour"]
                         week_hours_args_weekday: List[DayHours] = []
@@ -80,7 +79,6 @@ class ParseJson:
                             week_hours_json_loads = json.loads(week_hours_json_dumps)
                             if "horaire" in list(week_hours_json_loads.keys()):
                                 closed: DayHours.closed = False
-                                print(week_hours_json_loads["horaire"])
                                 if "@ouverture" in week_hours_json_loads["horaire"]:
                                     closed: False
                                     opening: Hour.opening = week_hours_json_loads["horaire"]["@ouverture"]
@@ -90,8 +88,6 @@ class ParseJson:
                                     closed: False
                                     opening = (horaire[0]["@ouverture"], horaire[0]["@fermeture"]) 
                                     closing = (horaire[1]["@ouverture"], horaire[1]["@fermeture"])
-                                    print(opening)
-                                    print(closing)
                             elif "@ferme" in list(week_hours_json_loads.keys()):
                                 closed: DayHours.closed = True
                                 opening: Hour.opening = "00:00"
