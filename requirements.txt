@@ -3,3 +3,5 @@ haversine
 geopy
 prettytable
 colorama
+tkintermapview
+uuid

@@ -10,7 +10,7 @@ from domain.data import *
 
 def near_stations(home_latitude: float, home_longitude: float, radius: int, id_sell_point: str, sell_point_latitude: int, sell_point_longitude: int):
     distance = distance_between(home_latitude, home_longitude, sell_point_latitude, sell_point_longitude)
-    if distance <= radius:
+    if float(distance) <= float(radius):
         return True
 
 
