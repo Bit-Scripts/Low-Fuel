@@ -30,7 +30,6 @@ class ParseJson:
         self.fuel_json = self.download_source()  # func
         self.latitudeStation = ""  # func
         self.longitudeStation = ""  # func
-        self.station_list()  # func
         self.sell_points: List[SellPoint] = list()  # valeur retourné
 
     def remove_old_source(self):
@@ -44,6 +43,7 @@ class ParseJson:
         return json_file
 
     def station_list(self):
+        print("Please wait... is loading")
         self.sell_points: List[SellPoint] = []
         for first_data in range(0, self.fuel_json.__len__()):
             self.latitudeStation = self.fuel_json[first_data]["fields"]["geom"][0]
@@ -131,7 +131,6 @@ class ParseJson:
                                        list_of_prices,
                                        ensemble_services, 
                                        distance)  # object to return
-                print("Please wait... is loading")
 
                 self.sell_points.append(sell_point)
         return self.sell_points

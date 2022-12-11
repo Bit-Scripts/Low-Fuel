@@ -18,9 +18,7 @@ location = address_to_coord(user_address.street + ' ' + user_address.post_code +
 
 user_address = AddressUser(1, '1-3 Rue des Minimes',  '37000', 'Tours', 5, location[0],location[1])
 
-MyParseData = ParseJson (url_data, path_of_file, user_address)
-
-my_sell_points: List[SellPoint] = MyParseData.station_list()
+my_sell_points: List[SellPoint] = ParseJson (url_data, path_of_file, user_address).station_list()
 
 pdv: SellPoint
 

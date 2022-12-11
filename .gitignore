@@ -3,3 +3,5 @@
 /domain/__pycache__
 /parsedata/__pycache__
 /.idea
+/kivy_venv
+/domain/__init__.py
