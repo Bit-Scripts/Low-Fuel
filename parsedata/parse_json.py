@@ -31,6 +31,7 @@ class ParseJson:
         self.latitudeStation = ""  # func
         self.longitudeStation = ""  # func
         self.sell_points: List[SellPoint] = list()  # valeur retourné
+        self.low_price_name: str = ""
 
     def remove_old_source(self):
         if os.path.exists(self.filePath):
@@ -46,9 +47,9 @@ class ParseJson:
 
     def station_list(self):
         print("Traitement des données...")
+        low_price: float = 99.9
         price: Price = ()
         list_of_prices: List[Price] = []
-        list_of_id: List(int) = []
         self.sell_points: List[SellPoint] = []
         for first_data in range(0, self.fuel_json.__len__()):
             self.latitudeStation = self.fuel_json[first_data]["fields"]["geom"][0]
@@ -117,6 +118,10 @@ class ParseJson:
                                 self.fuel_json[first_data]["fields"]["prix_valeur"])
             else:
                 price = "Pas de Carburant proposé"
+            list_of_prices.append(price)
+            if self.fuel_json[first_data]["fields"]["prix_valeur"] < low_price:
+                self.low_price_name = nom
+                low_price = self.fuel_json[first_data]["fields"]["prix_valeur"]
             ensemble_services = []
             if "services_service" in list(self.fuel_json[first_data]["fields"].keys()):
                 services = self.fuel_json[first_data]["fields"]["services_service"]
@@ -125,31 +130,17 @@ class ParseJson:
             else:
                 ensemble_services.append("Pas de service particuliers proposé")               
             distance = distance_between(self.coord_domicile[0], self.coord_domicile[1], self.latitudeStation, self.longitudeStation)
-            if self.sell_points == []:
-                list_of_prices.append(price)
-                sell_point = SellPoint(self.fuel_json[first_data]["fields"]["id"], 
+            
+            sell_point = SellPoint(self.fuel_json[first_data]["fields"]["id"], 
                                         nom, 
                                         address, 
                                         week_hours, 
                                         list_of_prices,
                                         ensemble_services, 
-                                        distance)  # object to return
-                self.sell_points.append(sell_point)
-            if int(self.fuel_json[first_data]["fields"]["id"]) in list_of_id:
-                for point in self.sell_points: 
-                    if int(point.idSP) == int(self.fuel_json[first_data]["fields"]["id"]):
-                        point.prices.append(price)
-                        break
-            else:
-                sell_point = SellPoint(self.fuel_json[first_data]["fields"]["id"], 
-                                        nom, 
-                                        address, 
-                                        week_hours, 
-                                        list_of_prices,
-                                        ensemble_services, 
-                                        distance)  # object to return
-                self.sell_points.append(sell_point)
-                list_of_id.append(int(self.fuel_json[first_data]["fields"]["id"]))
-                price: Price = ()
-                list_of_prices: List[Price] = []
+                                        distance)
+            self.sell_points.append(sell_point)
+            list_of_prices = []
         return self.sell_points
+    
+    def get_low_price_name(self):
+        return self.low_price_name
