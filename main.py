@@ -1,5 +1,6 @@
 from ctypes import windll
 import os
+import sys
 import time
 from tkinter.ttk import Combobox
 from typing import List
@@ -66,6 +67,9 @@ class Main(Tk):
 
         self.geometry(f"{1150}x{800}")
         self.title("Carte des stations à proximité")
+        
+        #icon application
+        self.iconbitmap(r'I:\\Low-Fuel\\petrol_pump.ico')
 
         # create map widget
         self.map_widget = tkintermapview.TkinterMapView(self, width=1150, height=800, corner_radius=0)
