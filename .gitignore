@@ -1,7 +1,11 @@
-/info.gouv/*
+/info.gouv/prix-carburants.json
+/info.gouv/PrixCarburants_instantane.xml
+/info.gouv/PrixCarburants_instantane.zip
 /__pycache__
 /domain/__pycache__
 /parsedata/__pycache__
 /.idea
 /kivy_venv
 /domain/__init__.py
+/build
+/build/*
