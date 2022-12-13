@@ -11,6 +11,7 @@ import tkintermapview
 import uuid
 from PIL import Image, ImageTk
 from itertools import count, cycle
+import random
 
 from domain.user import AddressUser
 from domain.data import SellPoint
@@ -69,14 +70,24 @@ class Main(Tk):
         self.title("Carte des stations à proximité")
         
         #icon application
-        self.iconbitmap(r'petrol_pump.ico')
+        icon_app = os.path.join(os.getcwd(), "petrol_pump.ico")
+        self.iconbitmap(icon_app)
 
         # create map widget
         self.map_widget = tkintermapview.TkinterMapView(self, width=1150, height=800, corner_radius=0)
         self.map_widget.place(relx=.5, rely=.5, anchor=CENTER)
 
+        # random position
+        Nord  = 51.08916667 
+        Sud   = 42.33277778
+        Ouest = -4.79555556
+        Est   =  8.23055556
+
+        random_latitude = random.uniform(Sud, Nord)
+        random_longitude = random.uniform(Ouest, Est)
+        
         # set current widget position and zoom
-        self.map_widget.set_position(48.866667, 2.333333)  # Domicile
+        self.map_widget.set_position(random_latitude, random_longitude)  # Domicile
         self.map_widget.set_zoom(13)
 
         self.frame = Frame(self)
@@ -152,7 +163,11 @@ class Main(Tk):
 
     
     def test(self):
-        file_gif='KSYL.gif'
+        file_gif='image/KSYL.gif'
+        self.gif = PhotoImage(file=file_gif, format="gif -index 2") # Convert to tkinter PhotoImage.
+        self.my_label = Label(image=self.gif)  # Put it on a Label.
+        self.my_label.img = self.gif  # Attach reference to image to prevent its deletion.
+        self.my_label.pack(expand=YES)
         idClient = uuid.uuid1()
         user_address = AddressUser(idClient, str(self.street_entry),  str(self.post_code_entry), str(self.city_entry), str(self.radius_entry))
         location = address_to_coord(user_address.street + ' ' + user_address.post_code + ' ' + user_address.city) 
@@ -160,6 +175,8 @@ class Main(Tk):
 
         if location[1] > 0:
             location_1 = '+' + str(location[1])
+        else:
+            location_1 = str(location[1])
         radius = '+' + str(float(self.radius_entry) * 1000) 
         url_data : str = 'https://data.economie.gouv.fr/explore/dataset/prix-carburants-fichier-instantane-test-ods-copie/download/?format=json&q=&refine.prix_nom=' + self.fuel_entry + '&geofilter.distance=' + str(location[0]) + ',' + location_1 + ',' + radius + '&timezone=Europe/Berlin&lang=fr'
         path_of_file : str = 'info.gouv/prix-carburants.json'
@@ -180,6 +197,8 @@ class Main(Tk):
 
         i = 0
 
+        self.my_label.pack_forget()
+        
         for pdv in my_sell_points:
             print('\n')
             print("------------------------------------------------------------")
@@ -270,5 +289,4 @@ class Main(Tk):
                 #new_marker.hide_image(True)
 
             i += 1
-
 Main()
