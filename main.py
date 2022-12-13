@@ -138,7 +138,7 @@ class Main(Tk):
         center(self)
         #set_appwindow(self)
         self.mainloop()
-        self.map_widget()
+        #self.map_widget()
         
     
     def printValue(self):
