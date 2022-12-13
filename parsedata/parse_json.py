@@ -36,6 +36,8 @@ class ParseJson:
     def remove_old_source(self):
         if os.path.exists(self.filePath):
             os.remove(self.filePath)
+        if not os.path.exists(self.filePath.split('/')[0]):
+            os.mkdir(self.filePath.split('/')[0])
 
     def download_source(self):
         print("\nRécupération des données...\n")

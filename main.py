@@ -69,7 +69,7 @@ class Main(Tk):
         self.title("Carte des stations à proximité")
         
         #icon application
-        self.iconbitmap(r'I:\\Low-Fuel\\petrol_pump.ico')
+        self.iconbitmap(r'petrol_pump.ico')
 
         # create map widget
         self.map_widget = tkintermapview.TkinterMapView(self, width=1150, height=800, corner_radius=0)
