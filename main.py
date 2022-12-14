@@ -44,7 +44,7 @@ def center(win):
     y = win.winfo_screenheight() // 2 - win_height // 2
     win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
     win.deiconify()
-
+    
 '''
 def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
 
@@ -163,11 +163,12 @@ class Main(Tk):
 
     
     def test(self):
+        self.frame = Frame(self)
         file_gif='image/KSYL.gif'
         self.gif = PhotoImage(file=file_gif, format="gif -index 2") # Convert to tkinter PhotoImage.
-        self.my_label = Label(image=self.gif)  # Put it on a Label.
-        self.my_label.img = self.gif  # Attach reference to image to prevent its deletion.
-        self.my_label.pack(expand=YES)
+        self.frame = Label(image=self.gif)  # Put it on a Label.
+        self.frame.img = self.gif  # Attach reference to image to prevent its deletion.
+        self.frame.pack(expand=YES)
         idClient = uuid.uuid1()
         user_address = AddressUser(idClient, str(self.street_entry),  str(self.post_code_entry), str(self.city_entry), str(self.radius_entry))
         location = address_to_coord(user_address.street + ' ' + user_address.post_code + ' ' + user_address.city) 
@@ -196,9 +197,8 @@ class Main(Tk):
         marker_1.set_text("Point de départ")
 
         i = 0
-
-        self.my_label.pack_forget()
         
+        self.frame.pack_forget()
         for pdv in my_sell_points:
             print('\n')
             print("------------------------------------------------------------")
