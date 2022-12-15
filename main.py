@@ -1,4 +1,3 @@
-from ctypes import windll
 import os
 import sys
 import time
@@ -71,6 +70,7 @@ class Main(Tk):
         
         #icon application
         icon_app = os.path.join(os.getcwd(), "petrol_pump.ico")
+        icon_app = "petrol_pump.ico"
         self.iconbitmap(icon_app)
 
         # create map widget

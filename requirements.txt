@@ -7,3 +7,5 @@ tkintermapview
 uuid
 pillow
 pyinstaller
+requests
+kivy-garden
