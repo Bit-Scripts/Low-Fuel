@@ -9,3 +9,4 @@
 /domain/__init__.py
 /build
 /build/*
+/image/imagecard/*

@@ -31,7 +31,7 @@ locator = Nominatim(user_agent="low-fuel")
 import kivy
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.garden.mapview import MapView
+#from kivy.garden.mapview import MapView
 from kivy.lang import Builder
 
 Builder.load_file('lowfuelapp.kt')

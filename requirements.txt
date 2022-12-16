@@ -3,6 +3,7 @@ haversine
 geopy
 prettytable
 colorama
+tk
 tkintermapview
 uuid
 pillow

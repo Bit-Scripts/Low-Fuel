@@ -69,9 +69,10 @@ class Main(Tk):
         self.title("Carte des stations à proximité")
         
         #icon application
-        icon_app = os.path.join(os.getcwd(), "petrol_pump.ico")
-        icon_app = "petrol_pump.ico"
-        self.iconbitmap(icon_app)
+        if sys.platform == 'win32':
+            icon_app = os.path.join(os.getcwd(), "petrol_pump.ico")
+            icon_app = "petrol_pump.ico"
+            self.iconbitmap(icon_app)
 
         # create map widget
         self.map_widget = tkintermapview.TkinterMapView(self, width=1150, height=800, corner_radius=0)
@@ -268,7 +269,7 @@ class Main(Tk):
             I1.text((5, 5), data_text, font=myFont, fill =(255, 255, 255))
             
             # Save the edited image
-            low_fuel_image = f'image/fuel_gauge_texts_{i}.jpg'
+            low_fuel_image = f'image/imagecard/fuel_gauge_texts_{i}.jpg'
             img.save(low_fuel_image)
 
             time_to_wait = 10
