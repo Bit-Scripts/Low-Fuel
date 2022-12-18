@@ -41,7 +41,7 @@ if __name__ == '__main__' and __package__ is None:
 locator = Nominatim(user_agent="low-fuel")
 
 # creating markers
-points: List[float] = []
+points: List[any] = []
 
 def on_text(instance, value):
     print('The widget', instance, 'have:', value)
@@ -60,21 +60,24 @@ mapview = MapView(lat=random_latitude, lon=random_longitude, zoom=12, map_source
 
 root.add_widget(mapview)
 
-street_label = ColoredLabel(text="    Numéro et\nNom de la Rue", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.25,.1), pos_hint={'x': 0, 'y': .9})
-street_entry = TextInput(size_hint=(.25,.05), pos_hint={'x': 0, 'y': .85})
+street_label = ColoredLabel(text="    Numéro et\nNom de la Rue", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.249,.098), pos_hint={'x': 0, 'y': .9})
+street_entry = TextInput(size_hint=(.249,.05), pos_hint={'x': 0, 'y': .85})
 street_entry.bind(text=on_text)
 
-post_code_label = ColoredLabel(text=" Code\nPostal", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.08333333333,.1), pos_hint={'x': .25, 'y': .9})
-post_code_entry = TextInput(size_hint=(.08333333333,.05), pos_hint={'x': .25, 'y': .85})
+post_code_label = ColoredLabel(text=" Code\nPostal", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.082333333333,.098), pos_hint={'x': .25, 'y': .9})
+post_code_entry = TextInput(size_hint=(.082333333333,.05), pos_hint={'x': .25, 'y': .85})
 post_code_entry.bind(text=on_text)
 
-city_label = ColoredLabel(text="Ville", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.16666667,.1), pos_hint={'x': .33333333, 'y': .9})
-city_entry = TextInput(size_hint=(.16666667,.05), pos_hint={'x': .33333333, 'y': .85})
+city_label = ColoredLabel(text="Ville", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.16566667,.098), pos_hint={'x': .33333333, 'y': .9})
+city_entry = TextInput(size_hint=(.16566667,.05), pos_hint={'x': .33333333, 'y': .85})
 city_entry.bind(text=on_text)
 
-radius_label = ColoredLabel(text="     Rayon\nd'action(km)", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.16666667,.1), pos_hint={'x': .5, 'y': .9})
-radius_entry = TextInput(size_hint=(.16666667,.05), pos_hint={'x': .5, 'y': .85})
+radius_label = ColoredLabel(text="     Rayon\nd'action(km)", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.165666667,.098), pos_hint={'x': .5, 'y': .9})
+radius_entry = TextInput(size_hint=(.16566667,.05), pos_hint={'x': .5, 'y': .85})
 radius_entry.bind(text=on_text)
+
+addresse_label = ColoredLabel(text="Adresse Non trouvé", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
+essence_label = ColoredLabel(text="Type d'essence non correct", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
 
 fuel_DropDown = DropDown()
 btn_Gazole = Button(text='Gazole', size_hint_y=None, height=44)
@@ -94,7 +97,7 @@ button_DropDown.bind(on_release=fuel_DropDown.open)
 fuel_DropDown.bind(on_select=lambda instance, x: setattr(button_DropDown, 'text', x))
 
 submitButton = Button(text="Mettre à jour", size_hint=(.16666667, .15), pos_hint={'x': .833333333, 'y': .85}) 
-submitButton.bind(on_press=lambda instance: updateMapView(street_entry.text, post_code_entry.text, city_entry.text, radius_entry.text, button_DropDown.text))
+submitButton.bind(on_press=lambda instance: updateMapView(street_entry.text, post_code_entry.text, city_entry.text, radius_entry.text, button_DropDown.text, addresse_label, essence_label))
 
 root.add_widget(submitButton)
 fuel_DropDown.add_widget(btn_Gazole)
@@ -113,32 +116,50 @@ root.add_widget(city_entry)
 root.add_widget(radius_label)
 root.add_widget(radius_entry)
 
-
-def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_entry):
+def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label):
     
-    print(f'street_entry : {street_entry}')
-    print(f'post_code_entry : {post_code_entry}')
-    print(f'city_entry : {city_entry}')
-    print(f'radius_entry : {radius_entry}')
-    print(f'fuel_entry: {fuel_entry}')
+    download_data_label = ColoredLabel(text="Récupération des données", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
+    root.add_widget(download_data_label)
+
+    points = []
 
     address=f'{street_entry} {post_code_entry} {city_entry}'
 
     locator = Nominatim(user_agent="low-fuel")
     location = locator.geocode(address)
-    idClient = uuid.uuid1()
 
+    
+    if locator.geocode(address) is None or (street_entry == '' or post_code_entry == '' or city_entry == ''):
+        root.remove_widget(download_data_label)
+        root.add_widget(addresse_label)
+        return None
+    else:
+        for c in list(root.children):
+            if c == addresse_label: root.remove_widget(addresse_label)
+        if fuel_entry != 'Gazole' and fuel_entry != 'SP98' and fuel_entry != 'SP95' and fuel_entry != 'GPLc' and fuel_entry != 'E10' and fuel_entry != 'E85':
+            root.remove_widget(download_data_label)
+            root.add_widget(essence_label)
+            return None
+        else:
+            for c in list(root.children):
+                if c == essence_label: root.remove_widget(essence_label)
+
+    root.remove_widget(download_data_label)
+    loading_label = ColoredLabel(text="Traitement des données", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
+    root.add_widget(loading_label)
+
+    idClient = uuid.uuid1()
 
     user_address = AddressUser(idClient, str(street_entry),  str(post_code_entry), str(city_entry), str(radius_entry))
     location = address_to_coord(user_address.street + ' ' + user_address.post_code + ' ' + user_address.city) 
     user_address = AddressUser(idClient, str(street_entry),  str(post_code_entry), str(city_entry), str(radius_entry), location[0],location[1])
 
     if location[1] > 0:
-        location_1 = '+' + str(location[1])
+        location_1 = f'+{location[1]}' 
     else:
         location_1 = str(location[1])
     radius = '+' + str(float(radius_entry) * 1000) 
-    url_data : str = 'https://data.economie.gouv.fr/explore/dataset/prix-carburants-fichier-instantane-test-ods-copie/download/?format=json&q=&refine.prix_nom=' + fuel_entry + '&geofilter.distance=' + str(location[0]) + ',' + location_1 + ',' + radius + '&timezone=Europe/Berlin&lang=fr'
+    url_data : str = f'https://data.economie.gouv.fr/explore/dataset/prix-carburants-fichier-instantane-test-ods-copie/download/?format=json&q=&refine.prix_nom={fuel_entry}&geofilter.distance={location[0]},{location_1},{radius}&timezone=Europe/Berlin&lang=fr'
     path_of_file : str = 'info.gouv/prix-carburants.json'
 
     parsejson = ParseJson(url_data, path_of_file, user_address)
@@ -147,14 +168,13 @@ def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_
 
     sellpoint: SellPoint
 
-    points.append((location[0], location[1], "Domicile", colorHtmlToKivy('#00FF00')))
+    points.append((location[0], location[1], f'[b]Point de départ[/b]\n{street_entry.title()}\n{post_code_entry} {city_entry.upper()}' , colorHtmlToKivy('#00FF00')))
 
     i = 0
 
     for sellpoint in my_sell_points:
-        text1 = sellpoint.name
-        text2 = str(sellpoint.address[0]) + ' ' + str(sellpoint.address[1]) + ' ' + str(sellpoint.address[2]) + ' ' + str(sellpoint.address[3]) + ' ' + str(sellpoint.address[4])
-        text2 = str(sellpoint.address[0]) + ' ' + str(sellpoint.address[1]) + ' ' + str(sellpoint.address[2])
+        text1 = '[b]' + sellpoint.name + '[/b]'
+        text2 = str(sellpoint.address[0]).title() + '\n' + str(sellpoint.address[1]) + ' ' + str(sellpoint.address[2]).upper()
         text3 = ""
         text5 = ""
         text6 = ""
@@ -171,7 +191,7 @@ def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_
                 for jour in range(0, 6):
                     jour_en_lettre = str(sellpoint.week_hours.day_hours[0][jour][0])
                     if sellpoint.week_hours.day_hours[0][jour][1]:
-                        text5 += '\n' + jour_en_lettre + " pas d'horaire spécifiée"
+                        text5 +=  '\n' + jour_en_lettre + " pas d'horaire spécifiée"
                     else:
                         opening = sellpoint.week_hours.day_hours[0][jour][2][0]
                         closing = sellpoint.week_hours.day_hours[0][jour][2][1]
@@ -181,14 +201,15 @@ def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_
                         else:
                             text7 += '\n' + jour_en_lettre + " ouverture de " + opening.replace('.', 'h') + " à " + closing.replace('.', 'h')
         prices_txt: str = ""
-        prices_txt_geo: str = ""
         for price in sellpoint.prices:
             if price != []:
-                prices_txt += "\nCarburant " + str(price[1]) + " à " + str(price[3]).replace('.', ',') + "€/L\nDernière mise à jour du prix :" + "\n" + str(price[2]) + "\n"          
-                prices_txt_geo += str(price[1]) + " à " + str(price[3]).replace('.', ',') + "€/L\n"
+                prices_txt += "[b]\nCarburant " + str(price[1]) + " à " + str(price[3]).replace('.', ',') + "€/L\nDernière mise à jour du prix :" + "\n" + str(price[2]) + "\n[/b]"          
         proposed_services: str = ""
+        key = 0
         for service in sellpoint.services:
-            proposed_services += str(service) + '\n'
+            if key <=4:
+                proposed_services += str(service) + ',\n'
+                key += 1
         text8 = "Station à " + str(round(sellpoint.distance,2)).replace('.', ',') + ' km'
 
         data_text = text1 + '\n' + text2 + '\n' + text3 + '\n' + text5 + '\n' + text6 + '\n' + text7 + '\n' + prices_txt + '\n' + proposed_services + '\n' + text8
@@ -198,10 +219,14 @@ def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_
         else:
             color = colorHtmlToKivy('#FF0000')
 
+       
+        data_text = os.linesep.join([s for s in data_text.splitlines() if s])
+
         points.append((sellpoint.address[3], sellpoint.address[4], data_text, color))
     
-    
-    kivy.createMarkerPopup()
+    root.remove_widget(loading_label)
+
+    kivy.createMarkerPopup(points)
     kivy.newLat = location[0]
     kivy.newLon = location[1]
     kivy.changeViewOfMap()

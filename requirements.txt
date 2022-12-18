@@ -9,4 +9,11 @@ uuid
 pillow
 pyinstaller
 requests
+kivy
 kivy-garden
+kivy_garden
+kivy-garden.mapview
+kivy_garden.mapview
+kivy_garden.graph
+requests 
+typing
