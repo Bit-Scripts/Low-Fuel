@@ -20,8 +20,16 @@ avant d'aller plus loin, installez les dépendances :
 est une version console finalisé   
    
    
-vous pouvez tester la version en cours de dev :   
+vous pouvez tester la version en cours de dev :    
    
 ```python   
 ~$ python3 main.py   
-```   
+```  
+Nouvelle Fonctionnalité : l'ajout de plusieurs requêtes en même temps  
+![Low - Fuel](./image/MultiRecherche.jpg)
+    
+vous pouvez aussi tester une ancienne version avec tkinter :   
+   
+```python    
+~$ python3 tkmain.py   
+```
