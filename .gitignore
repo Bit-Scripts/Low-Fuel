@@ -1,6 +1,7 @@
 /info.gouv/prix-carburants.json
 /info.gouv/PrixCarburants_instantane.xml
 /info.gouv/PrixCarburants_instantane.zip
+!/info.gouv
 /__pycache__/*
 /domain/__pycache__/*
 /parsedata/__pycache__/*
