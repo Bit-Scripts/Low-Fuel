@@ -13,3 +13,5 @@
 /dist/*
 /image/imagecard/*
 /cache/*
+/test.py
+/testeur.py
