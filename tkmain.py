@@ -1,11 +1,12 @@
-'''
-from ctypes import windll
 import os
 import sys
 import time
+from tkinter.ttk import Combobox
 from typing import List
 from geopy import Nominatim
 from parsedata.parse_json import ParseJson
+from tkinter import * 
+import tkintermapview
 import uuid
 from PIL import Image, ImageTk
 from itertools import count, cycle
@@ -21,57 +22,57 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 
-
 EVENT_TIMEOUT = .01  # A very short timeout - seconds.
 POLLING_DELAY = 1000  # How often to check search status - millisecs.
 
 locator = Nominatim(user_agent="low-fuel")
+
+def center(win):
+    """
+    centers a tkinter window
+    :param win: the main window or Toplevel window to center
+    """
+    win.update_idletasks()
+    width = win.winfo_width()
+    frm_width = win.winfo_rootx() - win.winfo_x()
+    win_width = width + 2 * frm_width
+    height = win.winfo_height()
+    titlebar_height = win.winfo_rooty() - win.winfo_y()
+    win_height = height + titlebar_height + frm_width
+    x = win.winfo_screenwidth() // 2 - win_width // 2
+    y = win.winfo_screenheight() // 2 - win_height // 2
+    win.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+    win.deiconify()
+    
+'''
+def set_appwindow(mainWindow):  # Pour afficher l'icon dans la barre des taches
+
+    GWL_EXSTYLE = -20
+    WS_EX_APPWINDOW = 0x00040000
+    WS_EX_TOOLWINDOW = 0x00000080
+    # Magic
+    hwnd = windll.user32.GetParent(mainWindow.winfo_id())
+    stylew = windll.user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+    stylew = stylew & ~WS_EX_TOOLWINDOW
+    stylew = stylew | WS_EX_APPWINDOW
+    windll.user32.SetWindowLongW(hwnd, GWL_EXSTYLE, stylew)
+
+    mainWindow.wm_withdraw()
+    mainWindow.after(10, mainWindow.wm_deiconify)
 '''
 
-import kivy
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-#from kivy.garden.mapview import MapView
-from kivy.lang import Builder
-
-Builder.load_file('lowfuelapp.kt')
-
-import random
-
-kivy.require('2.0.0')
-
-class LowFuelView(BoxLayout):
+class Main(Tk):
     def __init__(self):
-        super(LowFuelView, self).__init__()
-        self.randomValue = random.randint(0, 1000)
+        super().__init__()
 
-    def check_number(self):
-        if int(self.answer_input.text) == self.randomValue:
-            self.result_label.text = "Congrat!"
-            self.result_label.color = "#00EF0B"
-            self.randomValue = random.randint(0,1000)
-        elif int(self.answer_input.text) > self.randomValue:
-            self.result_label.text = "Less"
-            self.result_label.color = "#EF3E00"
-        elif int(self.answer_input.text) < self.randomValue:
-            self.result_label.text = "More"
-            self.result_label.color = "#EF3E00"
-
-class LowFuelApp(App):
-    def build(self):
-        return LowFuelView()
-
-lowFuelApp = LowFuelApp()
-lowFuelApp.run()
-
-'''
         self.geometry(f"{1150}x{800}")
         self.title("Carte des stations à proximité")
         
         #icon application
-        icon_app = os.path.join(os.getcwd(), "petrol_pump.ico")
-        icon_app = "petrol_pump.ico"
-        self.iconbitmap(icon_app)
+        if sys.platform == 'win32':
+            icon_app = os.path.join(os.getcwd(), "petrol_pump.ico")
+            icon_app = "petrol_pump.ico"
+            self.iconbitmap(icon_app)
 
         # create map widget
         self.map_widget = tkintermapview.TkinterMapView(self, width=1150, height=800, corner_radius=0)
@@ -268,7 +269,7 @@ lowFuelApp.run()
             I1.text((5, 5), data_text, font=myFont, fill =(255, 255, 255))
             
             # Save the edited image
-            low_fuel_image = f'image/fuel_gauge_texts_{i}.jpg'
+            low_fuel_image = f'image/imagecard/fuel_gauge_texts_{i}.jpg'
             img.save(low_fuel_image)
 
             time_to_wait = 10
@@ -289,5 +290,4 @@ lowFuelApp.run()
                 #new_marker.hide_image(True)
 
             i += 1
-'''
-
+Main()

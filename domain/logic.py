@@ -1,3 +1,11 @@
+import os
+import sys
+
+# setting path
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 # Logique Métiers
 from haversine import haversine
 
@@ -39,3 +47,23 @@ def distance_between(home_latitude: float, home_longitude: float, sell_point_lat
     sell_point_coord = (sell_point_latitude, sell_point_longitude)
     distance = haversine(home_coord, sell_point_coord)
     return distance
+
+
+def stringtoint(hex: str):
+    return int(hex,16)
+
+
+def hextofloat(hex: int):
+    return float(stringtoint(hex))
+
+
+def colorHtmlToKivy(html: str):
+    if len(html) == 7:
+        red = hextofloat(html[1:3]) / 255.0
+        green = hextofloat(html[3:5]) / 255.0
+        blue = hextofloat(html[5:7]) / 255.0
+        return tuple((red, green, blue))
+    if len(html) == 9:
+        alpha = hextofloat(html[7:9]) / 255.0
+        return tuple((red, green, blue, alpha))
+        
