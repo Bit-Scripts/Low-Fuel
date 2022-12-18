@@ -1,7 +1,8 @@
 import os
 import sys
 import uuid
-from Kivy.create_uix import kivyUi
+import pgeocode
+
 from domain.data import SellPoint
 from domain.logic import address_to_coord, colorHtmlToKivy
 from domain.user import AddressUser
@@ -25,18 +26,21 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.dropdown import DropDown
-from kivy.graphics.context_instructions import Color
-from kivy.graphics.vertex_instructions import Rectangle
+from kivy.base import EventLoop
 
-
+from Kivy.create_uix import kivyUi
 from Kivy.coloredlabel import ColoredLabel
 from domain.logic import colorHtmlToKivy
+
+
+EventLoop.window.title = 'Low-Fuel'
 
 if __name__ == '__main__' and __package__ is None:
     from os import path
 
     sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
+nomi = pgeocode.Nominatim('fr')
 
 locator = Nominatim(user_agent="low-fuel")
 
@@ -44,7 +48,16 @@ locator = Nominatim(user_agent="low-fuel")
 points: List[any] = []
 
 def on_text(instance, value):
-    print('The widget', instance, 'have:', value)
+    print()
+
+def on_text_(instance, value):
+    if value != '' and len(value) == 5 and str(int(value)) == value:
+        city = nomi.query_postal_code(value)
+        city = city.place_name
+        city = str(city)
+        city_entry.text = city
+    else:
+        city_entry.text = ''
 
 # random position
 Nord  = 51.08916667 
@@ -56,6 +69,8 @@ random_longitude = random.uniform(Ouest, Est)
 
 root = FloatLayout()
 
+root.icon = "petrol_pump-.png"
+
 mapview = MapView(lat=random_latitude, lon=random_longitude, zoom=12, map_source="osm", size_hint=(1, 1))
 
 root.add_widget(mapview)
@@ -66,7 +81,7 @@ street_entry.bind(text=on_text)
 
 post_code_label = ColoredLabel(text=" Code\nPostal", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.082333333333,.098), pos_hint={'x': .25, 'y': .9})
 post_code_entry = TextInput(size_hint=(.082333333333,.05), pos_hint={'x': .25, 'y': .85})
-post_code_entry.bind(text=on_text)
+post_code_entry.bind(text=on_text_)
 
 city_label = ColoredLabel(text="Ville", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.16566667,.098), pos_hint={'x': .33333333, 'y': .9})
 city_entry = TextInput(size_hint=(.16566667,.05), pos_hint={'x': .33333333, 'y': .85})
@@ -115,6 +130,7 @@ root.add_widget(city_label)
 root.add_widget(city_entry)
 root.add_widget(radius_label)
 root.add_widget(radius_entry)
+
 
 def updateMapView(street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label):
     

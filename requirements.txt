@@ -17,3 +17,4 @@ kivy_garden.mapview
 kivy_garden.graph
 requests 
 typing
+pgeocode
