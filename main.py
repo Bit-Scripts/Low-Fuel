@@ -2,6 +2,8 @@ import os
 import sys
 import uuid
 import pgeocode
+os.environ["KIVY_NO_CONSOLELOG"] = "1"
+
 from kivy.resources import resource_add_path, resource_find
 
 from domain.data import SellPoint

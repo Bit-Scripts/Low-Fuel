@@ -2,7 +2,8 @@
 from kivy_deps import sdl2, glew
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, get_deps_all, hookspath, runtime_hooks
 import sys
-sys.setrecursionlimit(1000000)
+
+sys.setrecursionlimit(sys.getrecursionlimit()*5)
 
 block_cipher = None
 
@@ -38,9 +39,9 @@ exe = EXE(
     strip=False,
     upx=True,
     upx_exclude=[],
-    runtime_tmpdir=None,
+    runtime_tmpdir='%TEMP%',
     console=False,
-    disable_windowed_traceback=False,
+    disable_windowed_traceback=True,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
