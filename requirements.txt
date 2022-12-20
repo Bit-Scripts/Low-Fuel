@@ -10,11 +10,8 @@ pillow
 pyinstaller
 requests
 kivy
-kivy.clock
 kivy-garden
-kivy_garden
 kivy-garden.mapview
-kivy_garden.mapview
 kivy_garden.graph
 requests 
 pgeocode

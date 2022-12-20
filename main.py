@@ -44,7 +44,7 @@ from kivy.clock import Clock
 
 class MyImage(Image):
     frame_counter = 0
-    frame_number = 36 # my example GIF had 36 frames
+    frame_number = 9 # my example GIF had 36 frames
 
     def on_texture(self, instance, value):     
         if self.frame_counter == self.frame_number + 1:

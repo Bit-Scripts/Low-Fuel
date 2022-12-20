@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-from kivy_deps import sdl2, glew
+#from kivy_deps import sdl2, glew
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, get_deps_all, hookspath, runtime_hooks
 import sys
 
@@ -12,7 +12,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('image','image'),('info.gouv','info.gouv'),('image\\marker.png', 'kivy_garden\\mapview\\icons\\')],
+    datas=[('image','image'),('info.gouv','info.gouv'),('image/marker.png', 'kivy_garden/mapview/icons/')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -31,7 +31,7 @@ exe = EXE(
     a.binaries,
     a.zipfiles,
     a.datas,
-    *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
+ #   *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
     [],
     name='Low-Fuel',
     debug=False,
@@ -46,5 +46,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['image\\petrol_pump.ico'],
+    icon=['image/petrol_pump.png'],
 )
