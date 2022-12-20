@@ -11,7 +11,7 @@ block_cipher = None
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[],
+    binaries=[('domain','domain'),('my_kivy','my_kivy'),('parsedata','parsedata')],
     datas=[('image','image'),('info.gouv','info.gouv'),('image/marker.png', 'kivy_garden/mapview/icons/')],
     hiddenimports=[],
     hookspath=[],
@@ -39,7 +39,7 @@ exe = EXE(
     strip=False,
     upx=True,
     upx_exclude=[],
-    runtime_tmpdir='%TEMP%',
+    runtime_tmpdir='/tmp',
     console=False,
     disable_windowed_traceback=True,
     argv_emulation=False,
