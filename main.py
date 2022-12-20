@@ -32,6 +32,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.dropdown import DropDown
+from kivy.uix.image import Image
 from kivy.resources import resource_add_path, resource_find
 
 from my_kivy.create_uix import kivyUi
@@ -39,6 +40,16 @@ from my_kivy.coloredlabel import ColoredLabel
 from domain.logic import colorHtmlToKivy
 from kivy.config import Config
 from kivy.app import App
+from kivy.clock import Clock
+
+class MyImage(Image):
+    frame_counter = 0
+    frame_number = 36 # my example GIF had 36 frames
+
+    def on_texture(self, instance, value):     
+        if self.frame_counter == self.frame_number + 1:
+            self.frame_counter = 0
+        self.frame_counter += 1
 
 class RootWidget(FloatLayout):
 
@@ -75,7 +86,7 @@ class RootWidget(FloatLayout):
 
         self.addresse_label = ColoredLabel(text="Adresse Non trouvé", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
         self.essence_label = ColoredLabel(text="Type d'essence non correct", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
-
+        
         self.fuel_DropDown = DropDown()
         self.btn_Gazole = Button(text='Gazole', size_hint_y=None, height=44)
         self.btn_Gazole.bind(on_release=lambda btn_Gazole: self.fuel_DropDown.select(self.btn_Gazole.text))
@@ -91,13 +102,10 @@ class RootWidget(FloatLayout):
         self.btn_GPLc.bind(on_release=lambda btn_GPLc: self.fuel_DropDown.select(self.btn_GPLc.text))
         self.button_DropDown = Button(text="Carburant utilisé", size_hint=(.16666667, .15), pos_hint={'x': .66666667, 'y': .85})
         self.button_DropDown.bind(on_release=self.fuel_DropDown.open)
-        self.fuel_DropDown.bind(on_select=lambda instance, x: setattr(self.button_DropDown, 'text', x))
-
+        self.fuel_DropDown.bind(on_select=lambda instance, x: setattr(self.button_DropDown, 'text', x)) 
         self.submitButton = Button(text="Mettre à jour", size_hint=(.16666667, .15), pos_hint={'x': .833333333, 'y': .85}) 
-        self.submitButton.bind(on_press=lambda instance: self.updateMapView(self.street_entry.text, self.post_code_entry.text, self.city_entry.text, self.radius_entry.text, self.button_DropDown.text, self.addresse_label, self.essence_label))
-        self.download_data_label = ColoredLabel(text="Récupération des données", color=(1,1,1,1), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
-        self.loading_label = ColoredLabel(text="Traitement des données", color=(1,1,1,1), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
-        
+        self.submitButton.bind(on_press=lambda instance: self.intermediate(self.street_entry.text, self.post_code_entry.text, self.city_entry.text, self.radius_entry.text, self.button_DropDown.text, self.addresse_label, self.essence_label))
+        self.bit_scripts_logo = MyImage(source = "image/Logo_Bit-Scripts.gif", size_hint=(.1, .1), pos_hint={'x': .01, 'y': .01})
 
         self.add_widget(self.submitButton)
         self.fuel_DropDown.add_widget(self.btn_Gazole)
@@ -115,6 +123,7 @@ class RootWidget(FloatLayout):
         self.add_widget(self.city_entry)
         self.add_widget(self.radius_label)
         self.add_widget(self.radius_entry)
+        self.add_widget(self.bit_scripts_logo)
         self.locator = Nominatim(user_agent="low-fuel")
         
     def on_text(self, instance, value):
@@ -130,20 +139,27 @@ class RootWidget(FloatLayout):
         else:
             self.city_entry.text = ''
 
-    def updateMapView(self, street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label):
+    def intermediate(self, street_entry, post_code_entry, city_entry, radius_entry, button_DropDown, addresse_label, essence_label):
+        self.download_data_label = ColoredLabel(text="Récupération des données", color=(1,1,1,1), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
+        self.loading_label = ColoredLabel(text="Traitement des données", color=(1,1,1,1), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
+        self.add_widget(self.download_data_label) 
+        Clock.schedule_once(lambda dt: self.next_intermediate(street_entry, post_code_entry, city_entry, radius_entry, button_DropDown, addresse_label, essence_label), 0)
+
+
+    def next_intermediate(self, street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label):                   
         self.remove_widget(self.addresse_label)
         self.remove_widget(self.essence_label)
+        Clock.schedule_once(lambda dt: self.next_update(street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label), 0)    
 
-        self.add_widget(self.download_data_label)
-        
+    def next_update(self, street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label):
         self.street_entry_post = street_entry
         self.post_code_entry_post = post_code_entry
         self.city_entry_post = city_entry
         self.radius_entry_post = radius_entry
         self.fuel_entry_post = fuel_entry
-        self.addresse_label_post = addresse_label
-        self.essence_label_post = essence_label
-
+        self.addresse_label = addresse_label
+        self.essence_label = essence_label
+        
         self.points = []
 
         self.address=f'{self.street_entry_post} {self.post_code_entry_post} {self.city_entry_post}'
@@ -158,7 +174,7 @@ class RootWidget(FloatLayout):
         else:
             for c in list(self.children):
                 if c == self.addresse_label: self.remove_widget(self.addresse_label)
-            if self.fuel_entry_post != 'Gazole' and self.fuel_entry_post != 'SP98' and self.fuel_entry_post != 'SP95' and self.fuel_entry_post!= 'GPLc' and self.fuel_entry_post != 'E10' and self.fuel_entry_post != 'E85':
+            if self.fuel_entry_post != 'Gazole' and self.fuel_entry_post != 'SP98' and self.fuel_entry_post != 'SP95' and self.fuel_entry_post != 'GPLc' and self.fuel_entry_post != 'E10' and self.fuel_entry_post != 'E85':
                 self.remove_widget(self.download_data_label)
                 self.add_widget(self.essence_label)
                 return None
@@ -181,9 +197,16 @@ class RootWidget(FloatLayout):
         self.path_of_file : str = 'info.gouv/prix-carburants.json'
         # TODO ajout irve : https://public.opendatasoft.com/api/records/1.0/search/?dataset=fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques-irve&q=&lang=fr&rows=20&facet=n_enseigne&facet=nbre_pdc&facet=puiss_max&facet=accessibilite&facet=nom_epci&facet=commune&facet=nom_reg&facet=nom_dep&geofilter.distance=47.439%2C+0.699%2C+5000
         self.remove_widget(self.download_data_label)
-
+        Clock.schedule_once(lambda dt: self.near_updateMapView(self.street_entry_post, self.post_code_entry_post, self.city_entry_post), 0)    
+    
+    def near_updateMapView(self, street_entry, post_code_entry, city_entry):
         self.add_widget(self.loading_label)
+        Clock.schedule_once(lambda dt: self.updateMapView(street_entry, post_code_entry, city_entry), 0)
 
+    def updateMapView(self, street_entry, post_code_entry, city_entry):
+        self.street_entry_post = street_entry
+        self.post_code_entry_post = post_code_entry
+        self.city_entry_post = city_entry
         self.parsejson = ParseJson(self.url_data, self.path_of_file, self.user_address)
 
         self.my_sell_points: List[SellPoint] = self.parsejson.station_list()
@@ -247,7 +270,9 @@ class RootWidget(FloatLayout):
             self.points.append((self.sellpoint.address[3], self.sellpoint.address[4], self.data_text, self.color))
         
         self.remove_widget(self.loading_label)
+        Clock.schedule_once(lambda dt: self.end_of_update_mapview(), 0)
 
+    def end_of_update_mapview(self):
         kivy = kivyUi(self.points, self, self.mapview)
         kivy.createMarkerPopup(self.points)
         kivy.newLat = self.location[0]
