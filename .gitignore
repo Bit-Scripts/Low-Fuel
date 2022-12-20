@@ -16,3 +16,9 @@
 /cache/*
 /test.py
 /testeur.py
+/distLow-Fuelkivy_gardenmapviewiconsmarker.png
+/my_kivy/__pycache__
+/parsedata/__pycache__
+/domain/__pycache__
+/cache
+/dist

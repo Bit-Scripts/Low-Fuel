@@ -40,15 +40,12 @@ class ParseJson:
             os.mkdir(self.filePath.split('/')[0])
 
     def download_source(self):
-        print("\nRécupération des données...\n")
         downloaded_file = open(wget.download(self.url, self.filePath))
-        print('\n')
         #json_file = json.load(open('info.gouv/prix-carburants.json', 'r')) 
         json_file = json.load(downloaded_file)
         return json_file
 
     def station_list(self):
-        print("Traitement des données...")
         low_price: float = 99.9
         price: Price = ()
         list_of_prices: List[Price] = []

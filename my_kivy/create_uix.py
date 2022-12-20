@@ -46,4 +46,4 @@ class kivyUi():
             self.mapview.add_widget(mapMarkerPopup)
 
     def on_text(self, instance, value):
-        print('The widget', instance, 'have:', value)
+        pass
