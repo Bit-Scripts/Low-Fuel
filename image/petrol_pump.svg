@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="64px"
    height="64px"
    id="svg3641"
    version="1.1"
-   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    sodipodi:docname="petrol_pump.svg"
-   inkscape:export-filename="I:\Low-Fuel\image\petrol_pump.png"
-   inkscape:export-xdpi="384"
-   inkscape:export-ydpi="384"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
+   inkscape:export-filename="C:\Users\Paul.WOISARD\Documents\Low-Fuel\petrol_pump.png"
+   inkscape:export-xdpi="25.869471"
+   inkscape:export-ydpi="25.869471">
   <defs
      id="defs3643">
     <inkscape:perspective
@@ -49,19 +47,20 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="53.5"
-     inkscape:cy="14"
-     inkscape:current-layer="layer1"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="-18.175329"
+     inkscape:cy="45.433717"
+     inkscape:current-layer="g935"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
-     inkscape:window-width="3440"
-     inkscape:window-height="1369"
+     inkscape:window-width="2560"
+     inkscape:window-height="1371"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:pagecheckerboard="0" />
+     inkscape:pagecheckerboard="0"
+     inkscape:document-rotation="0" />
   <metadata
      id="metadata3646">
     <rdf:RDF>
@@ -77,58 +76,155 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <path
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="m 18.922634,8.282026 c -1.952007,0 -3.52959,1.305356 -3.52959,2.920524 v 3.156758 30.858846 8.997821 H 43.603802 V 45.218154 14.359308 11.20255 c 0,-1.615168 -1.577582,-2.920524 -3.52959,-2.920524 z"
-       id="rect3606" />
-    <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect3611"
-       width="36.702892"
-       height="6.307436"
-       x="11"
-       y="52.692566"
-       ry="0" />
-    <rect
-       style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect3613"
-       width="20.553619"
-       height="8.5781145"
-       x="18.63422"
-       y="15.352533"
-       ry="1.9913471" />
-    <path
-       style="fill:none;stroke:#3a3737;stroke-width:1.40321;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 43.270895,29.279044 h 4.770429 c -0.06596,0 -0.269268,13.087567 0,18.061128 0.168557,3.113033 7.155642,2.103772 7.155642,-0.269567 V 23.887668"
-       id="path3615"
-       sodipodi:nodetypes="csssc" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:2.00702;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 49.700184,17.348167 c 8.566183,1.777618 4.799671,7.014698 6.297673,9.492402"
-       id="path3619"
-       sodipodi:nodetypes="cc" />
-    <path
-       sodipodi:type="arc"
-       style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.71616;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path3621"
-       sodipodi:cx="-16.970562"
-       sodipodi:cy="104.65864"
-       sodipodi:rx="8.890625"
-       sodipodi:ry="4.9497476"
-       d="m -8.079937,104.65864 a 8.890625,4.9497476 0 0 1 -8.878569,4.94974 8.890625,4.9497476 0 0 1 -8.902648,-4.93632 8.890625,4.9497476 0 0 1 8.854424,-4.963129 8.890625,4.9497476 0 0 1 8.9266622,4.922859 l -8.8904942,0.0269 z"
-       sodipodi:start="0"
-       sodipodi:end="6.2777611"
-       transform="matrix(0.16233655,-0.246854,0.16663339,0.76016358,39.473179,-59.595442)"
-       sodipodi:arc-type="slice" />
-    <rect
-       style="opacity:0;fill:#000000;fill-opacity:0.928571;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect3604"
-       width="64"
-       height="64"
-       x="0"
-       y="0"
-       inkscape:export-filename="D:\FASTALLOY\VAT\TTD\2009 TTD\TTD DEC 2009\today\Hind motor\logo\petrol-pump\petrol-pump-icon.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+    <g
+       id="g935"
+       transform="matrix(0.08186506,0,0,0.08582841,7.697267,-7.7310937)">
+      <path
+         sodipodi:open="true"
+         d="M 454.13329,297.03256 A 158.03445,161.65976 0 0 1 298.57767,459.25222 158.03445,161.65976 0 0 1 138.12634,302.1015 158.03445,161.65976 0 0 1 289.80133,136.08102 a 158.03445,161.65976 0 0 1 164.1197,153.1354"
+         sodipodi:arc-type="arc"
+         sodipodi:end="6.2312262"
+         sodipodi:start="6.2795989"
+         sodipodi:ry="161.65976"
+         sodipodi:rx="158.03445"
+         sodipodi:cy="297.61234"
+         sodipodi:cx="296.09985"
+         sodipodi:type="arc"
+         id="path867"
+         style="fill:#ececec;stroke-width:21.3272" />
+      <path
+         d="m 13.567629,564.70659 c -20.7849996,77.131 -51.799,144.5 -72.654,221.61 2.1015,4.6742 8.8667,1.0502 12.719,2.1875 233.250001,-0.083 466.560001,0.1667 699.780001,-0.125 4.2968,-2.5855 -1.1212,-8.655 -1.0077,-12.491 -20.23,-74.16 -48.44,-142.55 -68.69,-216.7 -196.02,0 -373.71,4.0362 -569.730001,4.0362 l -0.27,0.96 z"
+         filter="url(#imagebot_13)"
+         id="imagebot_12" />
+      <path
+         d="m 590.15763,555.41659 62.933,230.64 c 0.0643,0.2358 -0.23656,0.4411 -0.53041,0.4411 H -56.379781 c -0.29385,0 -0.59221,-0.2046 -0.53041,-0.4411 l 62.0670004,-230.64 z"
+         fill="#dcd3ba"
+         id="imagebot_11" />
+      <path
+         d="m 570.43763,784.28659 c 0,-1.1136 -3.3217,-4.2151 -5.067,-4.7311 -2.3188,-0.6855 -9.2187,-4.8201 -9.2187,-5.5241 0,-0.3098 -0.40179,-0.5771 -0.89286,-0.5938 -2.6563,-0.091 -10.236,-9.2779 -11.922,-14.45 -0.64973,-1.9935 -1.5989,-3.0627 -3.6462,-4.1071 -1.5223,-0.7766 -3.2689,-1.4121 -3.8812,-1.4121 -0.61236,0 -2.7948,-0.8905 -4.8499,-1.979 -2.0551,-1.0885 -5.6651,-2.5678 -8.0222,-3.2874 -6.7148,-2.0498 -10.022,-3.9058 -14.701,-8.2492 -3.3438,-3.1039 -4.6508,-4.927 -5.6893,-7.9356 -0.74155,-2.1483 -1.3588,-4.4202 -1.3716,-5.0487 -0.0129,-0.6286 -0.94749,-2.4186 -2.077,-3.9779 -1.12951,-1.5593 -2.2762,-3.5361 -2.5481,-4.3929 -0.27195,-0.8568 -0.79421,-1.5578 -1.1606,-1.5578 -0.36637,0 -0.66615,-0.631 -0.66615,-1.4021 0,-1.9039 -6.7557,-8.343 -10.714,-10.212 -1.7679,-0.8347 -3.4713,-1.938 -3.7855,-2.4518 -0.31417,-0.5137 -1.7606,-0.9343 -3.2143,-0.9345 -4.633,-9e-4 -20.857,-4.9085 -20.857,-6.309 0,-0.3169 -0.95919,-1.6505 -2.1315,-2.9636 -1.17231,-1.3131 -2.3386,-3.0398 -2.5917,-3.8372 -0.25309,-0.7974 -1.7046,-3.4831 -3.2256,-5.9681 -2.6817,-4.3813 -2.7658,-4.718 -2.7762,-11.113 -0.01,-6.0881 -0.73063,-9.7693 -2.5034,-12.786 -0.3851,-0.6554 -3.2716,-2.4385 -6.4145,-3.9625 -3.1429,-1.5239 -6.6229,-3.3712 -7.7334,-4.105 -1.6882,-1.1156 -4.0881,-1.4192 -14.643,-1.8523 -13.358,-0.5482 -19.644,-1.8523 -23.824,-4.9423 -1.0759,-0.7955 -2.2261,-1.4463 -2.556,-1.4463 -0.32984,0 -1.0065,-1.125 -1.5037,-2.5 -0.4972,-1.375 -1.3654,-2.5 -1.9292,-2.5 -0.56386,0 -1.0252,-0.3147 -1.0252,-0.6993 0,-0.9196 -7.8027,-8.5865 -8.7386,-8.5865 -0.61877,0 -8.4709,-3.756 -13.047,-6.2409 -0.78572,-0.4267 -3.3571,-1.1475 -5.7143,-1.6018 -4.7721,-0.9197 -10.318,-3.3679 -10.867,-4.7968 -0.19667,-0.5126 -0.72498,-0.9319 -1.174,-0.9319 -1.4014,0 -4.496,-4.5161 -5.0237,-7.3312 -0.27717,-1.4785 -0.52833,-7.8783 -0.55812,-14.222 -0.0534,-11.366 -0.0832,-11.579 -2.0572,-14.692 -1.1017,-1.7372 -3.3923,-4.5684 -5.0902,-6.2916 -1.6979,-1.7232 -4.6155,-4.7108 -6.4835,-6.6392 -1.868,-1.9284 -4.8349,-4.8322 -6.5931,-6.4529 l -2.7909,-3.8435 h 275 l 31.093,115.19 c 16.88,62.534 29.839,114.01 29.861,114.11 0.022,0.098 -18.121,0.1786 -40.317,0.1786 -22.196,0 -40.357,-0.2745 -40.357,-0.61 z"
+         fill="#89d375"
+         opacity="0.4856"
+         id="imagebot_10" />
+      <path
+         d="m 433.15763,555.41659 h 45 l 9.933,231.08 h -65 z"
+         fill="#f7fd9f"
+         id="imagebot_9" />
+      <g
+         fill="#ffffff"
+         transform="translate(-51.272371,-561.94341)"
+         id="imagebot_6">
+        <path
+           style="fill:#ececec"
+           d="m 676.43,1242.4 10,40 h -590 l 10,-35 z"
+           id="imagebot_8" />
+        <path
+           style="fill:#ececec"
+           d="m 116.43,1117.4 h 40 l -36.067,165.08 h -50 z"
+           id="imagebot_7" />
+      </g>
+      <path
+         d="m 590.15763,555.41659 62.933,230.64 c 0.0643,0.2358 -0.23656,0.4411 -0.53041,0.4411 H -56.379781 c -0.29385,0 -0.59221,-0.2046 -0.53041,-0.4411 l 62.0670004,-230.64 z"
+         fill="none"
+         id="imagebot_5" />
+      <path
+         fill="none"
+         stroke-width="10"
+         stroke="#000000"
+         d="m 590.15763,555.41659 62.933,230.64 c 0.0643,0.2358 -0.23656,0.4411 -0.53041,0.4411 H -56.379781 c -0.29385,0 -0.59221,-0.2046 -0.53041,-0.4411 l 62.0670004,-230.64 z"
+         opacity="0.8"
+         id="imagebot_4">Q</path>
+      <path
+         d="m 295.78763,120.62159 c -99.484,0 -179.81,80.41 -179.81,179.59 0,31.186 7.9688,60.528 21.938,86.094 l 157.88,264.31 157.88,-264.31 c 13.969,-25.566 21.938,-54.908 21.938,-86.094 0,-99.184 -80.328,-179.59 -179.81,-179.59 z m 1.20245,40.72734 c 36.77005,-1.57215 69.35679,13.93845 94.46107,39.39974 22.25534,22.57183 37.83226,55.27776 37.11567,93.47072 0.46206,41.46726 -17.62096,75.02042 -40.37689,97.66857 -24.08183,23.96777 -54.20908,36.16296 -90.56459,36.71309 -32.00678,-1.28751 -61.13594,-13.91689 -82.14869,-31.8613 -28.93157,-24.7069 -44.18616,-60.14199 -45.87049,-95.832 0.32797,-36.64182 10.18674,-68.82426 31.18272,-93.68726 22.7937,-26.99183 58.23629,-45.16208 96.2012,-45.87156 z"
+         fill="#e52626"
+         stroke-width="10.397"
+         stroke="#000000"
+         id="imagebot_3"
+         sodipodi:nodetypes="sscccssscscscscsc" />
+      <text
+         font-weight="bold"
+         xml:space="preserve"
+         text-anchor="middle"
+         font-family="serif"
+         font-size="220.775px"
+         id="imagebot_15"
+         y="726.00348"
+         x="85.416985"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         stroke-width="0"
+         stroke="#000000"
+         fill="#000000">@</text>
+      <rect
+         id="imagebot_16"
+         height="111.32813"
+         width="111.32813"
+         y="180.96216"
+         x="547.05145"
+         fill-opacity="0"
+         stroke-opacity="0"
+         stroke-linecap="null"
+         stroke-linejoin="null"
+         stroke-dasharray="none"
+         stroke-width="10"
+         stroke="#000000"
+         fill="none" />
+      <g
+         transform="translate(10.688321,8.7383653)"
+         id="g865">
+        <path
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 252.27347,204.18717 c -6.46462,0 -11.68921,3.93618 -11.68921,8.80655 v 9.51886 93.05161 27.13197 h 93.42772 v -27.13197 -93.05161 -9.51886 c 0,-4.87037 -5.22462,-8.80655 -11.68921,-8.80655 z"
+           id="rect3606" />
+        <rect
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect3611"
+           width="121.55177"
+           height="19.019407"
+           x="226.03543"
+           y="338.10251"
+           ry="0" />
+        <rect
+           style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect3613"
+           width="68.068985"
+           height="25.8664"
+           x="251.31824"
+           y="225.50754"
+           ry="6.0046973" />
+        <path
+           style="fill:none;stroke:#3a3737;stroke-width:4.4343;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 332.90946,267.50147 h 15.79859 c -0.21857,0 -0.89176,39.46419 0,54.46144 0.55824,9.38702 23.69788,6.34369 23.69788,-0.81286 v -69.90571"
+           id="path3615"
+           sodipodi:nodetypes="csssc" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:6.34241;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 354.20183,231.52517 c 28.36927,5.36022 15.89543,21.15209 20.85647,28.62336"
+           id="path3619"
+           sodipodi:nodetypes="cc" />
+        <path
+           sodipodi:type="arc"
+           style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.52507;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="path3621"
+           sodipodi:cx="394.89313"
+           sodipodi:cy="588.51434"
+           sodipodi:rx="8.1634769"
+           sodipodi:ry="11.669958"
+           d="m 403.0566,588.51434 a 8.1634769,11.669958 0 0 1 -8.1524,11.66995 8.1634769,11.669958 0 0 1 -8.17452,-11.6383 8.1634769,11.669958 0 0 1 8.13024,-11.70151 8.1634769,11.669958 0 0 1 8.19656,11.60656 l -8.16335,0.0633 z"
+           sodipodi:start="0"
+           sodipodi:end="6.2777611"
+           transform="matrix(0.58551014,-0.81066508,0.23406514,0.97222092,0,0)"
+           sodipodi:arc-type="slice" />
+      </g>
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\FASTALLOY\VAT\TTD\2009 TTD\TTD DEC 2009\today\Hind motor\logo\petrol-pump\petrol-pump-icon.png"
+         y="179.21361"
+         x="189.6059"
+         height="192.98524"
+         width="211.95367"
+         id="rect3604"
+         style="opacity:0;fill:#000000;fill-opacity:0.928571;fill-rule:evenodd;stroke:#7b837e;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
   </g>
 </svg>
