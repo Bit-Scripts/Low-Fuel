@@ -1,8 +1,11 @@
 import os
 import sys
-import uuid
+import tempfile
+from uuid_extensions import uuid7str
 import pgeocode
-os.environ["KIVY_NO_CONSOLELOG"] = "1"
+import pathlib
+#os.environ["KIVY_NO_CONSOLELOG"] = "1"
+os.environ["PYTHONPYCACHEPREFIX"] = "$TMPDIR"
 
 from kivy.resources import resource_add_path, resource_find
 
@@ -12,9 +15,9 @@ from domain.user import AddressUser
 from parsedata.parse_json import ParseJson
 
 # setting path
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
+#current = os.path.dirname(os.path.realpath(__file__))
+#parent = os.path.dirname(current)
+#sys.path.append(parent)
 
 from typing import List
 
@@ -66,8 +69,12 @@ class RootWidget(FloatLayout):
         random_longitude = random.uniform(Ouest, Est)
         
         # let's add a Widget to this layout
-        self.mapview = MapView(lat=random_latitude, lon=random_longitude, zoom=12, map_source="osm", size_hint=(1, 1))
-        self.add_widget(self.mapview)
+        self.tmp_dir = os.path.dirname(pathlib.Path(tempfile.mkstemp()[1]))
+        print(self.tmp_dir)
+        #os.makedirs(self.tmp_dir)
+        self.mapview = MapView(lat=random_latitude, lon=random_longitude, zoom=12, map_source="osm", size_hint=(1, 1), cache_dir=self.tmp_dir)
+        self.add_widget(self.mapview) 
+    
         self.street_label = ColoredLabel(text="    Numéro et\nNom de la Rue", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.249,.098), pos_hint={'x': 0, 'y': .9})
         self.street_entry = TextInput(size_hint=(.249,.05), pos_hint={'x': 0, 'y': .85})
         self.street_entry.bind(text=self.on_text)
@@ -125,7 +132,10 @@ class RootWidget(FloatLayout):
         self.add_widget(self.radius_entry)
         self.add_widget(self.bit_scripts_logo)
         self.locator = Nominatim(user_agent="low-fuel")
-        
+
+    def __enter__(self):
+        return self.name
+
     def on_text(self, instance, value):
         pass
 
@@ -182,7 +192,7 @@ class RootWidget(FloatLayout):
                 for c in list(self.children):
                     if c == self.essence_label: self.remove_widget(self.essence_label)
 
-        self.idClient = uuid.uuid1()
+        self.idClient = uuid7str()
 
         self.user_address = AddressUser(self.idClient, str(self.street_entry_post),  str(self.post_code_entry_post), str(self.city_entry_post), str(self.radius_entry_post))
         self.location = address_to_coord(self.user_address.street + ' ' + self.user_address.post_code + ' ' + self.user_address.city) 
@@ -194,7 +204,7 @@ class RootWidget(FloatLayout):
             self.location_1 = str(self.location[1])
         self.radius = '+' + str(float(self.radius_entry_post) * 1000) 
         self.url_data : str = f'https://data.economie.gouv.fr/explore/dataset/prix-carburants-fichier-instantane-test-ods-copie/download/?format=json&q=&refine.prix_nom={self.fuel_entry_post}&geofilter.distance={self.location[0]},{self.location_1},{self.radius}&timezone=Europe/Berlin&lang=fr'
-        self.path_of_file : str = 'info.gouv/prix-carburants.json'
+        self.path_of_file : str = self.tmp_dir
         # TODO ajout irve : https://public.opendatasoft.com/api/records/1.0/search/?dataset=fichier-consolide-des-bornes-de-recharge-pour-vehicules-electriques-irve&q=&lang=fr&rows=20&facet=n_enseigne&facet=nbre_pdc&facet=puiss_max&facet=accessibilite&facet=nom_epci&facet=commune&facet=nom_reg&facet=nom_dep&geofilter.distance=47.439%2C+0.699%2C+5000
         self.remove_widget(self.download_data_label)
         Clock.schedule_once(lambda dt: self.near_updateMapView(self.street_entry_post, self.post_code_entry_post, self.city_entry_post), 0)    
@@ -279,7 +289,6 @@ class RootWidget(FloatLayout):
         kivy.newLon = self.location[1]
         kivy.changeViewOfMap()
 
-
 class Low_Fuel(App):
     def build(self):
         self.title = 'Low-Fuel'
@@ -287,12 +296,12 @@ class Low_Fuel(App):
         self.root = RootWidget()
  
 
-if __name__ == '__main__' and __package__ is None:
-    from os import path
+#if __name__ == '__main__' and __package__ is None:
+    #from os import path
 
-    sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+    #sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 if __name__ == '__main__':
-    if hasattr(sys, '_MEIPASS'):
-        resource_add_path(os.path.join(sys._MEIPASS))
+    #if hasattr(sys, '_MEIPASS'):
+    #@    resource_add_path(os.path.join(sys._MEIPASS))
     Low_Fuel().run()

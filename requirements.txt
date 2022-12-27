@@ -5,7 +5,7 @@ prettytable
 colorama
 tk
 tkintermapview
-uuid
+uuid7
 pillow
 pyinstaller
 requests
@@ -17,3 +17,4 @@ requests
 pgeocode
 wheel
 setuptools
+pgeocode

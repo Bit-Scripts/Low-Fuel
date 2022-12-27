@@ -1,5 +1,6 @@
 import os
 import sys
+import tempfile
 from geopy.geocoders import Nominatim
 import wget
 import json 
@@ -34,14 +35,17 @@ class ParseJson:
         self.low_price_name: str = ""
 
     def remove_old_source(self):
-        if os.path.exists(self.filePath):
-            os.remove(self.filePath)
-        if not os.path.exists(self.filePath.split('/')[0]):
-            os.mkdir(self.filePath.split('/')[0])
+        pass
+        #with os.scandir(self.filePath) as entries:
+        #    for entry in entries:
+        #        file = str(entry)
+        #        if file.endswith('*.json'):
+        #            os.remove(entry)
+        
+        
 
     def download_source(self):
-        downloaded_file = open(wget.download(self.url, self.filePath))
-        #json_file = json.load(open('info.gouv/prix-carburants.json', 'r')) 
+        downloaded_file = open(wget.download(self.url, out=(self.filePath + '/essence.json')))
         json_file = json.load(downloaded_file)
         return json_file
 
