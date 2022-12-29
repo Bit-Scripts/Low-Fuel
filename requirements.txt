@@ -3,8 +3,6 @@ haversine
 geopy
 prettytable
 colorama
-tk
-tkintermapview
 uuid7
 pillow
 pyinstaller
@@ -16,5 +14,6 @@ kivy_garden.graph
 requests 
 pgeocode
 wheel
-setuptools
 pgeocode
+setuptools >= 61.2
+packaging >= 21.,

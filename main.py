@@ -69,9 +69,11 @@ class RootWidget(FloatLayout):
         random_longitude = random.uniform(Ouest, Est)
         
         # let's add a Widget to this layout
-        self.tmp_dir = os.path.dirname(pathlib.Path(tempfile.mkstemp()[1]))
-        print(self.tmp_dir)
-        #os.makedirs(self.tmp_dir)
+        self.tmp_dir = os.getenv("HOME") + '/Library/Low-Fuel/'
+        if not os.path.exists(self.tmp_dir):
+            os.makedirs(self.tmp_dir)
+
+
         self.mapview = MapView(lat=random_latitude, lon=random_longitude, zoom=12, map_source="osm", size_hint=(1, 1), cache_dir=self.tmp_dir)
         self.add_widget(self.mapview) 
     
@@ -292,7 +294,10 @@ class RootWidget(FloatLayout):
 class Low_Fuel(App):
     def build(self):
         self.title = 'Low-Fuel'
-        self.icon = 'image/petrol_pump.png'
+        if hasattr(sys, '_MEIPASS'):
+            self.icon = '../Resources/petrol_pump.icns'
+        else:
+            self.icon = 'image/petrol_pump.icns'
         self.root = RootWidget()
  
 
