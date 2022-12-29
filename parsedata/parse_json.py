@@ -33,6 +33,7 @@ class ParseJson:
         self.longitudeStation = ""  # func
         self.sell_points: List[SellPoint] = list()  # valeur retourné
         self.low_price_name: str = ""
+        self.high_price_name: str = ""
 
     def remove_old_source(self):
         pass
@@ -51,6 +52,7 @@ class ParseJson:
 
     def station_list(self):
         low_price: float = 99.9
+        high_price: float = 0.0
         price: Price = ()
         list_of_prices: List[Price] = []
         self.sell_points: List[SellPoint] = []
@@ -125,6 +127,8 @@ class ParseJson:
             if self.fuel_json[first_data]["fields"]["prix_valeur"] < low_price:
                 self.low_price_name = nom
                 low_price = self.fuel_json[first_data]["fields"]["prix_valeur"]
+            if self.fuel_json[first_data]["fields"]["prix_valeur"] > high_price:
+                self.high_price_name = nom
             ensemble_services = []
             if "services_service" in list(self.fuel_json[first_data]["fields"].keys()):
                 services = self.fuel_json[first_data]["fields"]["services_service"]
@@ -147,3 +151,6 @@ class ParseJson:
     
     def get_low_price_name(self):
         return self.low_price_name
+    
+    def get_high_price_name(self):
+        return self.high_price_name

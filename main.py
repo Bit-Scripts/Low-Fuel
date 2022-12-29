@@ -36,7 +36,7 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.dropdown import DropDown
 from kivy.uix.image import Image
-from kivy.resources import resource_add_path, resource_find
+from kivy.graphics import Color
 
 from my_kivy.create_uix import kivyUi
 from my_kivy.coloredlabel import ColoredLabel
@@ -67,12 +67,15 @@ class RootWidget(FloatLayout):
         Ouest = -4.79555556
         random_latitude = random.uniform(Sud, Nord)
         random_longitude = random.uniform(Ouest, Est)
+
+        self.city_entry = ''
         
         # let's add a Widget to this layout
         self.tmp_dir = os.getenv("HOME") + '/Library/Low-Fuel/'
         if not os.path.exists(self.tmp_dir):
             os.makedirs(self.tmp_dir)
-
+        
+        self.city_btn_number = 0 ;
 
         self.mapview = MapView(lat=random_latitude, lon=random_longitude, zoom=12, map_source="osm", size_hint=(1, 1), cache_dir=self.tmp_dir)
         self.add_widget(self.mapview) 
@@ -86,9 +89,11 @@ class RootWidget(FloatLayout):
         self.post_code_entry.bind(text=self.on_text_)
 
         self.city_label = ColoredLabel(text="Ville", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.16566667,.098), pos_hint={'x': .33333333, 'y': .9})
-        self.city_entry = TextInput(size_hint=(.16566667,.05), pos_hint={'x': .33333333, 'y': .85})
-        self.city_entry.bind(text=self.on_text)
-
+        self.city_DropDown = DropDown()
+        self.city_button_DropDown = Button(text="Entrer le CP", size_hint=(.16666667, .05), pos_hint={'x': .33333333, 'y': .85}, color=(0,0,0,1), background_normal='', background_color=(1,1,1,1), outline_color=(0,0,0,1))
+        self.city_button_DropDown.bind(on_release=self.city_DropDown.open)
+        self.city_DropDown.bind(on_select=lambda instance, x: setattr(self.city_button_DropDown, 'text', x)) 
+        
         self.radius_label = ColoredLabel(text="     Rayon\nd'action(km)", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,1), size_hint=(.165666667,.098), pos_hint={'x': .5, 'y': .9})
         self.radius_entry = TextInput(size_hint=(.16566667,.05), pos_hint={'x': .5, 'y': .85})
         self.radius_entry.bind(text=self.on_text)
@@ -97,23 +102,23 @@ class RootWidget(FloatLayout):
         self.essence_label = ColoredLabel(text="Type d'essence non correct", color=colorHtmlToKivy('#ffffff'), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
         
         self.fuel_DropDown = DropDown()
-        self.btn_Gazole = Button(text='Gazole', size_hint_y=None, height=44)
+        self.btn_Gazole = Button(text='Gazole', size_hint_y=None, height=44, background_color=[1,1,1,1])
         self.btn_Gazole.bind(on_release=lambda btn_Gazole: self.fuel_DropDown.select(self.btn_Gazole.text))
-        self.btn_SP95 = Button(text='SP95', size_hint_y=None, height=44)
+        self.btn_SP95 = Button(text='SP95', size_hint_y=None, height=44, background_color=[1,1,1,1])
         self.btn_SP95.bind(on_release=lambda btn_SP95: self.fuel_DropDown.select(self.btn_SP95.text))
-        self.btn_SP98 = Button(text='SP98', size_hint_y=None, height=44)
+        self.btn_SP98 = Button(text='SP98', size_hint_y=None, height=44, background_color=[1,1,1,1])
         self.btn_SP98.bind(on_release=lambda btn_SP98: self.fuel_DropDown.select(self.btn_SP98.text))
-        self.btn_E85 = Button(text='E85', size_hint_y=None, height=44)
+        self.btn_E85 = Button(text='E85', size_hint_y=None, height=44, background_color=[1,1,1,1])
         self.btn_E85.bind(on_release=lambda btn_E85: self.fuel_DropDown.select(self.btn_E85.text))
-        self.btn_E10 = Button(text='E10', size_hint_y=None, height=44)
+        self.btn_E10 = Button(text='E10', size_hint_y=None, height=44, background_color=[1,1,1,1])
         self.btn_E10.bind(on_release=lambda btn_E10: self.fuel_DropDown.select(self.btn_E10.text))
-        self.btn_GPLc = Button(text='GPLc', size_hint_y=None, height=44)
+        self.btn_GPLc = Button(text='GPLc', size_hint_y=None, height=44, background_color=[1,1,1,1])
         self.btn_GPLc.bind(on_release=lambda btn_GPLc: self.fuel_DropDown.select(self.btn_GPLc.text))
         self.button_DropDown = Button(text="Carburant utilisé", size_hint=(.16666667, .15), pos_hint={'x': .66666667, 'y': .85})
         self.button_DropDown.bind(on_release=self.fuel_DropDown.open)
         self.fuel_DropDown.bind(on_select=lambda instance, x: setattr(self.button_DropDown, 'text', x)) 
         self.submitButton = Button(text="Mettre à jour", size_hint=(.16666667, .15), pos_hint={'x': .833333333, 'y': .85}) 
-        self.submitButton.bind(on_press=lambda instance: self.intermediate(self.street_entry.text, self.post_code_entry.text, self.city_entry.text, self.radius_entry.text, self.button_DropDown.text, self.addresse_label, self.essence_label))
+        self.submitButton.bind(on_press=lambda instance: self.intermediate(self.street_entry.text, self.post_code_entry.text, self.city_button_DropDown.text, self.radius_entry.text, self.button_DropDown.text, self.addresse_label, self.essence_label))
         self.bit_scripts_logo = MyImage(source = "image/Logo_Bit-Scripts.gif", size_hint=(.1, .1), pos_hint={'x': .01, 'y': .01})
 
         self.add_widget(self.submitButton)
@@ -129,7 +134,7 @@ class RootWidget(FloatLayout):
         self.add_widget(self.post_code_label)
         self.add_widget(self.post_code_entry)
         self.add_widget(self.city_label)
-        self.add_widget(self.city_entry)
+        self.add_widget(self.city_button_DropDown)
         self.add_widget(self.radius_label)
         self.add_widget(self.radius_entry)
         self.add_widget(self.bit_scripts_logo)
@@ -146,16 +151,26 @@ class RootWidget(FloatLayout):
             nomi = pgeocode.Nominatim('fr')
             city = nomi.query_postal_code(value)
             city = city.place_name
-            city = str(city)
-            self.city_entry.text = city
+            city = str(city).split(', ')
+            if len(city) == 1:
+                self.btn_city = Button(text=city[0], size_hint_y=None, height=22, color=(0,0,0,1), background_normal='', background_color=(1,1,1,.65))
+                self.btn_city.bind(on_release=lambda city_DropDown: self.city_DropDown.select(self.btn_city.text))
+                self.city_DropDown.add_widget(self.btn_city)
+            else:
+                for index in range(len(city) - 1):
+                    btn_city = Button(text=f'{city[index]}', size_hint_y=None, height=22, color=(0,0,0,1), background_normal='', background_color=(1,1,1,.65), outline_color=(0,0,0,1))
+                    btn_city.bind(on_release=lambda btn_city: self.city_DropDown.select(btn_city.text))
+                    self.city_DropDown.add_widget(btn_city)
+            self.city_DropDown.open(self.city_button_DropDown)
         else:
-            self.city_entry.text = ''
-
-    def intermediate(self, street_entry, post_code_entry, city_entry, radius_entry, button_DropDown, addresse_label, essence_label):
+            self.city_DropDown.dismiss()
+            self.city_DropDown.clear_widgets()
+            
+    def intermediate(self, street_entry, post_code_entry, city_DropDown, radius_entry, button_DropDown, addresse_label, essence_label):
         self.download_data_label = ColoredLabel(text="Récupération des données", color=(1,1,1,1), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
         self.loading_label = ColoredLabel(text="Traitement des données", color=(1,1,1,1), background_color=(0.34509803921568627,0.34509803921568627,0.34509803921568627,.65), size_hint=(.4,.2), pos_hint={'x': .3, 'y': .4})
         self.add_widget(self.download_data_label) 
-        Clock.schedule_once(lambda dt: self.next_intermediate(street_entry, post_code_entry, city_entry, radius_entry, button_DropDown, addresse_label, essence_label), 0)
+        Clock.schedule_once(lambda dt: self.next_intermediate(street_entry, post_code_entry, city_DropDown, radius_entry, button_DropDown, addresse_label, essence_label), 0)
 
 
     def next_intermediate(self, street_entry, post_code_entry, city_entry, radius_entry, fuel_entry, addresse_label, essence_label):                   
@@ -187,6 +202,7 @@ class RootWidget(FloatLayout):
             for c in list(self.children):
                 if c == self.addresse_label: self.remove_widget(self.addresse_label)
             if self.fuel_entry_post != 'Gazole' and self.fuel_entry_post != 'SP98' and self.fuel_entry_post != 'SP95' and self.fuel_entry_post != 'GPLc' and self.fuel_entry_post != 'E10' and self.fuel_entry_post != 'E85':
+                
                 self.remove_widget(self.download_data_label)
                 self.add_widget(self.essence_label)
                 return None
@@ -225,7 +241,7 @@ class RootWidget(FloatLayout):
 
         self.sellpoint: SellPoint
 
-        self.points.append((self.location[0], self.location[1], f'[b]Point de départ[/b]\n{self.street_entry_post.title()}\n{self.post_code_entry_post} {self.city_entry_post.upper()}' , colorHtmlToKivy('#00FF00')))
+        self.points.append((self.location[0], self.location[1], f'[b]Point de départ[/b]\n{self.street_entry_post.title()}\n{self.post_code_entry_post} {self.city_entry_post.upper()}', colorHtmlToKivy('#00FFD4')))
 
         i = 0
 
@@ -272,9 +288,11 @@ class RootWidget(FloatLayout):
             data_text = text1 + '\n' + text2 + '\n' + text3 + '\n' + text5 + '\n' + text6 + '\n' + text7 + '\n' + prices_txt + '\n' + proposed_services + '\n' + text8
 
             if self.sellpoint.name == self.parsejson.get_low_price_name():
-                self.color = colorHtmlToKivy('#736A7C')
+                self.color = colorHtmlToKivy('#FF0000')
+            elif self.sellpoint.name == self.parsejson.get_high_price_name():
+                self.color = colorHtmlToKivy('#000000')
             else:
-               self.color = colorHtmlToKivy('#FF0000')
+               self.color = colorHtmlToKivy('#736A7C')
 
         
             self.data_text = os.linesep.join([s for s in data_text.splitlines() if s])
@@ -299,14 +317,6 @@ class Low_Fuel(App):
         else:
             self.icon = 'image/petrol_pump.icns'
         self.root = RootWidget()
- 
-
-#if __name__ == '__main__' and __package__ is None:
-    #from os import path
-
-    #sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 if __name__ == '__main__':
-    #if hasattr(sys, '_MEIPASS'):
-    #@    resource_add_path(os.path.join(sys._MEIPASS))
     Low_Fuel().run()
