@@ -1,6 +1,5 @@
 import os
 import sys
-import tempfile
 from geopy.geocoders import Nominatim
 import wget
 import json 

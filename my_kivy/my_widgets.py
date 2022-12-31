@@ -5,6 +5,8 @@ from kivy.graphics.context_instructions import Color
 from kivy.graphics.vertex_instructions import Rectangle, Line
 from kivy.properties import ListProperty, NumericProperty
 
+
+
 class ColoredBackgoundMixin:
     _color = None
     _rect = None
@@ -22,9 +24,20 @@ class ColoredBackgoundMixin:
             self._color_border = Color(*border_color)
             self.border_width = border_width
             self._width = self.border_width
-            self._rectangle = (self.size[0], self.size[1], self.pos[0], self.pos[1])
+            self._rectangle = (
+                self.size[0], 
+                self.size[1], 
+                self.pos[0], 
+                self.pos[1]
+                )
             self._line = Line(rectangle=self._rectangle, width=self._width)
-            self.bind(size=self._update_rect, pos=self._update_rect, background_color=self._update_rect, border_width=self._update_rect, border_color=self._update_rect)
+            self.bind(
+                size=self._update_rect, 
+                pos=self._update_rect, 
+                background_color=self._update_rect, 
+                border_width=self._update_rect, 
+                border_color=self._update_rect
+                )
 
     def _update_rect(self, instance, value):
         self._color.rgba = instance.background_color
@@ -32,7 +45,12 @@ class ColoredBackgoundMixin:
         self._rect.size = instance.size
         self._color_border.rgba = instance.border_color
         self._line.width = instance.border_width
-        self._rectangle = (instance.pos[0], instance.pos[1], instance.size[0], instance.size[1])
+        self._rectangle = (
+            instance.pos[0], 
+            instance.pos[1], 
+            instance.size[0], 
+            instance.size[1]
+            )
         self._line.rectangle = self._rectangle
 
 
@@ -55,20 +73,32 @@ class SmoothButtonMixin:
             self._color = Color(*border_color)
             self.border_width = border_width
             self._width = self.border_width
-            self._rectangle = (self.size[0], self.size[1], self.pos[0], self.pos[1])
+            self._rectangle = (
+                self.size[0], 
+                self.size[1], 
+                self.pos[0], 
+                self.pos[1]
+                )
             self._line = Line(rectangle=self._rectangle, width=self._width)
-            self.bind(size=self._update_border, pos=self._update_border, border_width=self._update_border, border_color=self._update_border)     
+            self.bind(
+                size=self._update_border, 
+                pos=self._update_border, 
+                border_width=self._update_border, 
+                border_color=self._update_border
+                )     
 
     def _update_border(self, instance, value):
         self._color.rgba = instance.border_color
         self._line.width = instance.border_width
-        self._rectangle = (instance.pos[0], instance.pos[1], instance.size[0], instance.size[1])
+        self._rectangle = (
+            instance.pos[0], 
+            instance.pos[1], 
+            instance.size[0], 
+            instance.size[1])
         self._line.rectangle = self._rectangle
 
 class SmoothButton(SmoothButtonMixin, Button):
     pass
-
-
 
 class GifImage(Image):
     frame_counter = 0
