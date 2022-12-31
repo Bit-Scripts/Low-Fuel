@@ -1,24 +1,10 @@
 import os
 import sys
-import pgeocode
-import pathlib
 
-#os.environ["KIVY_NO_CONSOLELOG"] = "1"
+os.environ["KIVY_NO_CONSOLELOG"] = "1"
 os.environ["PYTHONPYCACHEPREFIX"] = "$TMPDIR"
 
-from kivy.resources import resource_add_path, resource_find
 from kivy.uix.floatlayout import FloatLayout
-
-from domain.data import SellPoint
-from domain.logic import address_to_coord
-from domain.user import AddressUser
-from parsedata.parse_json import ParseJson
-
-from typing import List
-
-from geopy import Nominatim
-
-import random
 
 import platform
 
