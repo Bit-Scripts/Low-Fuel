@@ -47,12 +47,13 @@ class kivyUi():
         self.city_btn_number = 0
         
         # let's add a Widget to this layout
+        user_folder = os.path.expanduser("~")
         if platform.system() == 'Darwin':
-            self.tmp_dir = os.getenv("HOME") + '/Library/Low-Fuel/'
+            self.tmp_dir = user_folder + '/Library/Low-Fuel/'
         if platform.system() == 'Linux':
             self.tmp_dir = '/tmp/Low-Fuel/'
         if platform.system() == 'Windows':
-            self.tmp_dir = os.getenv("HOME") + '\\AppData\\Local\\Temp\\Low-Fuel\\'
+            self.tmp_dir = user_folder + '\\AppData\\Local\\Temp\\Low-Fuel\\'
         
         if not os.path.exists(self.tmp_dir):
             os.makedirs(self.tmp_dir)

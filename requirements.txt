@@ -3,7 +3,6 @@ haversine
 geopy
 prettytable
 colorama
-uuid7
 pillow
 pyinstaller
 requests
@@ -16,4 +15,5 @@ pgeocode
 wheel
 pgeocode
 setuptools >= 61.2
-packaging >= 21.,
+packaging >= 21
+uuid7
