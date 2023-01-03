@@ -2,18 +2,29 @@
 from kivy_deps import sdl2, glew
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, get_deps_all, hookspath, runtime_hooks
 import sys
+import os
 
-sys.setrecursionlimit(sys.getrecursionlimit()*5)
+if sys.getrecursionlimit() != None:
+    sys.setrecursionlimit(sys.getrecursionlimit()*1000000)
 
 block_cipher = None
 
+ROOT_DIR = os.path.dirname(os.path.abspath("__file__")) # This is your Project Root
 
 a = Analysis(
-    ['main.py'],
+    [
+        'main.py', 
+        'domain\\data.py', 
+        'domain\\logic.py', 
+        'domain\\user.py', 
+        'my_kivy\\my_widgets.py', 
+        'my_kivy\\create_uix.py', 
+        'parsedata\\parse_json.py', 
+    ],
     pathex=[],
     binaries=[],
-    datas=[('image','image'),('info.gouv','info.gouv'),('image\\marker.png', 'kivy_garden\\mapview\\icons\\')],
-    hiddenimports=[],
+    datas=[('image\\Logo_Bit-Scripts.gif', 'image\\'),('image\\marker.png', 'kivy_garden\\mapview\\icons\\')],
+    hiddenimports=['kivy_garden', 'mapview'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

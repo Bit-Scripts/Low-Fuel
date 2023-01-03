@@ -19,12 +19,12 @@ from kivy_garden.mapview import MapView
 from kivy_garden.mapview import MapMarkerPopup
 from kivy.uix.bubble import Bubble
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.image import AsyncImage
+from kivy.uix.image import AsyncImage, Image
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.dropdown import DropDown
 
-from my_kivy.my_widgets import ColoredLabel, SmoothButton, GifImage
+from my_kivy.my_widgets import ColoredLabel, SmoothButton
 from domain.data import SellPoint
 from domain.logic import address_to_coord
 from domain.user import AddressUser
@@ -59,7 +59,12 @@ class kivyUi():
             os.makedirs(self.tmp_dir)
         self.gui_interface()
 
-
+    def resource_path(self, relative_path):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return os.path.join(base_path, relative_path)
 
     def gui_interface(self):
 
@@ -256,10 +261,16 @@ class kivyUi():
             border_width=2) 
         self.submitButton.bind(on_press=lambda instance: self.intermediate(self.street_entry.text, self.post_code_entry.text, self.city_button_DropDown.text, self.radius_entry.text, self.button_DropDown.text, self.addresse_label, self.essence_label))
 
-        self.bit_scripts_logo = GifImage(
-            source = "image/Logo_Bit-Scripts.gif", 
+        self.gif = 'image/Logo_Bit-Scripts.gif'
+        if platform.system() == 'Windows':
+            self.gif = 'image\\logo_Bit-Scripts.gif'
+
+        self.bit_scripts_logo = Image(
+            source = self.resource_path(self.gif), 
             size_hint=(.1, .1),
-            pos_hint={'x': .01, 'y': .01}
+            pos_hint={'x': .01, 'y': .01},
+            anim_delay=.5,
+            anim_loop=0
             )
 
         self.RootWidget.add_widget(self.mapview) 

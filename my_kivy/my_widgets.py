@@ -1,6 +1,5 @@
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.image import Image
 from kivy.graphics.context_instructions import Color
 from kivy.graphics.vertex_instructions import Rectangle, Line
 from kivy.properties import ListProperty, NumericProperty
@@ -99,12 +98,3 @@ class SmoothButtonMixin:
 
 class SmoothButton(SmoothButtonMixin, Button):
     pass
-
-class GifImage(Image):
-    frame_counter = 0
-    frame_number = 9 # my example GIF had 36 frames
-
-    def on_texture(self, instance, value):     
-        if self.frame_counter == self.frame_number + 1:
-            self.frame_counter = 0
-        self.frame_counter += 1
