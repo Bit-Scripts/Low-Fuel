@@ -272,6 +272,55 @@ class kivyUi():
             anim_delay=.5,
             anim_loop=0
             )
+        
+        self.moins_cher_1 = ColoredLabel(
+            text='Moins chère 1', 
+            color=utils.get_color_from_hex('#000000'), 
+            background_color=(0.45098,0.64706,0.45098,1), 
+            size_hint=(.16436667,.1435), 
+            pos_hint={'x': .834333333, 'y': .63}, 
+            border_width=1.5, 
+            border_color=(0,0,0,1)
+        )
+        
+        self.moins_cher_2 = ColoredLabel(
+            text='Moins chère 2', 
+            color=utils.get_color_from_hex('#000000'), 
+            background_color=(0.45098,0.64706,0.45098,1), 
+            size_hint=(.16436667,.1435), 
+            pos_hint={'x': .834333333, 'y': .49}, 
+            border_width=1.5, 
+            border_color=(0,0,0,1)
+        )
+        
+        self.moins_cher_3 = ColoredLabel(
+            text='Moins chère 3', 
+            color=utils.get_color_from_hex('#000000'), 
+            background_color=(0.45098,0.64706,0.45098,1), 
+            size_hint=(.16436667,.1435), 
+            pos_hint={'x': .834333333, 'y': .35}, 
+            border_width=1.5, 
+            border_color=(0,0,0,1)
+        )
+        
+        self.moins_cher_4 = ColoredLabel(
+            text='Moins chère 4', 
+            color=utils.get_color_from_hex('#000000'), 
+            background_color=(0.45098,0.64706,0.45098,1), 
+            size_hint=(.16436667,.1435), 
+            pos_hint={'x': .834333333, 'y': .21}, 
+            border_width=1.5, 
+            border_color=(0,0,0,1)
+        )
+        self.moins_cher_5 = ColoredLabel(
+            text='Moins chère 5', 
+            color=utils.get_color_from_hex('#000000'), 
+            background_color=(0.45098,0.64706,0.45098,1), 
+            size_hint=(.16436667,.1435), 
+            pos_hint={'x': .834333333, 'y': .07}, 
+            border_width=1.5, 
+            border_color=(0,0,0,1)
+        )
 
         self.RootWidget.add_widget(self.mapview) 
         self.RootWidget.add_widget(self.submitButton)
@@ -291,6 +340,12 @@ class kivyUi():
         self.RootWidget.add_widget(self.radius_label)
         self.RootWidget.add_widget(self.radius_entry)
         self.RootWidget.add_widget(self.bit_scripts_logo)
+        self.RootWidget.add_widget(self.moins_cher_1)
+        self.RootWidget.add_widget(self.moins_cher_2)
+        self.RootWidget.add_widget(self.moins_cher_3)
+        self.RootWidget.add_widget(self.moins_cher_4)
+        self.RootWidget.add_widget(self.moins_cher_5)
+        self.locator = Nominatim(user_agent="low-fuel")
         self.locator = Nominatim(user_agent="low-fuel")
 
     def __enter__(self):
