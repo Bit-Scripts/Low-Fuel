@@ -654,7 +654,7 @@ class kivyUi():
                 )
                 self.RootWidget.add_widget(moins_cher)
             case 1 | 2 | 3 | 4 | 5:
-                for index in range(len(self.price_array) - 1):
+                for index in range(len(self.price_array)):
                     y = .63 - (index * .14)
 
                     text = f'[size=10][b]{self.price_array[index].get("name")}[/b]\n{self.price_array[index].get("address")}\n{self.price_array[index].get("text")}\n[/size]'
