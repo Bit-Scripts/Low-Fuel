@@ -65,7 +65,13 @@ class ParseJson:
             if nom is not None:
                 if type(nom) == int or type(nom) == float:
                     nom = 'Nom Station non trouvé'
-            address:Address = (self.fuel_json[first_data]["fields"]["adresse"], self.fuel_json[first_data]["fields"]["cp"], self.fuel_json[first_data]["fields"]["com_name"], self.latitudeStation, self.longitudeStation)
+            address = Address(
+                street=self.fuel_json[first_data]["fields"]["adresse"], 
+                post_code=self.fuel_json[first_data]["fields"]["cp"], 
+                city=self.fuel_json[first_data]["fields"]["com_name"], 
+                latitude=self.latitudeStation, 
+                longitude=self.longitudeStation
+                )
             
             
             week_hours_args_1 = (self.fuel_json[first_data]["fields"]["horaires_automate_24_24"] == "Oui")
@@ -116,10 +122,12 @@ class ParseJson:
             week_hours_args_weekday.append(week_hours_args_2)
             week_hours = WeekHours(week_hours_args_1, week_hours_args_weekday)
             if "prix_id" in list(self.fuel_json[first_data]["fields"].keys()):
-                price: Price = (self.fuel_json[first_data]["fields"]["prix_id"], 
-                                self.fuel_json[first_data]["fields"]["prix_nom"], 
-                                self.fuel_json[first_data]["fields"]["prix_maj"], 
-                                self.fuel_json[first_data]["fields"]["prix_valeur"])
+                price = Price(
+                    idPr=self.fuel_json[first_data]["fields"]["prix_id"], 
+                    fuel_type=self.fuel_json[first_data]["fields"]["prix_nom"], 
+                    last_updated=self.fuel_json[first_data]["fields"]["prix_maj"], 
+                    value=self.fuel_json[first_data]["fields"]["prix_valeur"]
+                    )
             else:
                 price = "Pas de Carburant proposé"
             list_of_prices.append(price)
@@ -137,13 +145,15 @@ class ParseJson:
                 ensemble_services.append("Pas de service particuliers proposé")               
             distance = distance_between(self.coord_domicile[0], self.coord_domicile[1], self.latitudeStation, self.longitudeStation)
             
-            sell_point = SellPoint(self.fuel_json[first_data]["fields"]["id"], 
-                                        nom, 
-                                        address, 
-                                        week_hours, 
-                                        list_of_prices,
-                                        ensemble_services, 
-                                        distance)
+            sell_point = SellPoint(
+                idSP=self.fuel_json[first_data]["fields"]["id"], 
+                name=nom, 
+                address=address, 
+                week_hours=week_hours, 
+                prices=list_of_prices,
+                services=ensemble_services, 
+                distance=distance
+                )
             self.sell_points.append(sell_point)
             list_of_prices = []
         return self.sell_points
