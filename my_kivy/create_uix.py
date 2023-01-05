@@ -335,7 +335,7 @@ class kivyUi():
                     on_release=lambda city_DropDown: self.city_DropDown.select(self.btn_city.text))
                 self.city_DropDown.add_widget(self.btn_city)
             else:
-                for index in range(len(city) - 1):
+                for index in range(len(city)):
                     btn_city = SmoothButton(
                         text=f'{city[index]}',
                         size_hint_y=None,
