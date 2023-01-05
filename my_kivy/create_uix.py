@@ -549,10 +549,10 @@ class kivyUi():
         self.sellpoint: SellPoint
 
         self.points.append(
-            (self.location[0],
+            [self.location[0],
              self.location[1],
              f'[b]Point de départ[/b]\n{self.street_entry_post.title()}\n{self.post_code_entry_post} {self.city_entry_post.upper()}',
-             utils.get_color_from_hex('#3BAECF'))
+             utils.get_color_from_hex('#3BAECF')]
         )
 
         i = 0
@@ -616,10 +616,10 @@ class kivyUi():
                 [s for s in data_text.splitlines() if s])
 
             self.points.append(
-                (self.sellpoint.address.latitude,
+                [self.sellpoint.address.latitude,
                  self.sellpoint.address.longitude,
                  self.data_text,
-                 self.color)
+                 self.color]
             )
 
         self.RootWidget.remove_widget(self.loading_label)
@@ -646,8 +646,8 @@ class kivyUi():
                     valign='center',
                     color=utils.get_color_from_hex('#000000'),
                     background_color=(0.45098, 0.64706, 0.45098, 1),
-                    size_hint=(.16436667, .1435),
-                    pos_hint={'x': .834333333, 'y': y},
+                    size_hint=(.18536667, .1435),
+                    pos_hint={'x': .803333333, 'y': y},
                     border_width=1.5,
                     border_color=(0, 0, 0, 1)
                 )
@@ -671,8 +671,8 @@ class kivyUi():
                         valign='center',
                         color=utils.get_color_from_hex('#000000'),
                         background_color=color,
-                        size_hint=(.16436667, .1435),
-                        pos_hint={'x': .834333333, 'y': y},
+                        size_hint=(.18536667, .1435),
+                        pos_hint={'x': .803333333, 'y': y},
                         border_width=1.5,
                         border_color=(0, 0, 0, 1)
                     )
@@ -699,8 +699,8 @@ class kivyUi():
                         valign='top',
                         color=utils.get_color_from_hex('#000000'),
                         background_color=color,
-                        size_hint=(.16436667, .1435),
-                        pos_hint={'x': .834333333, 'y': y},
+                        size_hint=(.18536667, .1435),
+                        pos_hint={'x': .80333333, 'y': y},
                         border_width=1.5,
                         border_color=(0, 0, 0, 1)
                     )
