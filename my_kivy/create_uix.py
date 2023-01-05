@@ -658,11 +658,12 @@ class kivyUi():
 
                     text = f'[size=10][b]{self.price_array[index].get("name")}[/b]\n{self.price_array[index].get("address")}\n{self.price_array[index].get("text")}\n[/size]'
 
-                    if   index == 0: color=[0, 0.5, 0, 1.0]
-                    elif index == 1: color=[0, 1, 0, 1.0]
-                    elif index == 2: color=[0.5, 0.5, 0, 1.0]
-                    elif index == 3: color=[0.5, 0, 0, 1.0]
-                    elif index == 4: color=[1, 0, 0, 1.0]
+                    if   index == 0: color=utils.get_color_from_hex('#00FF00')
+                    elif index == 1: color=utils.get_color_from_hex('#99FF00')
+                    elif index == 2: color=utils.get_color_from_hex('#FFFF00')
+                    elif index == 3: color=utils.get_color_from_hex('#FF9900')
+                    elif index == 4: color=utils.get_color_from_hex('#FF3300')
+                    elif index == 4: color=utils.get_color_from_hex('#FF0000')
 
                     moins_cher = ColoredLabel(
                         text=text,
@@ -686,11 +687,12 @@ class kivyUi():
 
                     text = f'[size=10][b]{self.price_array[index].get("name")}[/b]\n{self.price_array[index].get("address")}\n{self.price_array[index].get("text")}\n[/size]'
 
-                    if   index == 0: color=[0, 0.5, 0, 1.0]
-                    elif index == 1: color=[0, 1, 0, 1.0]
-                    elif index == 2: color=[0.5, 0.5, 0, 1.0]
-                    elif index == 3: color=[0.5, 0, 0, 1.0]
-                    elif index == 4: color=[1, 0, 0, 1.0]
+                    if   index == 0: color=utils.get_color_from_hex('#00FF00')
+                    elif index == 1: color=utils.get_color_from_hex('#99FF00')
+                    elif index == 2: color=utils.get_color_from_hex('#FFFF00')
+                    elif index == 3: color=utils.get_color_from_hex('#FF9900')
+                    elif index == 4: color=utils.get_color_from_hex('#FF3300')
+                    elif index == 4: color=utils.get_color_from_hex('#FF0000')
 
                     moins_cher = ColoredLabel(
                         text=text,
