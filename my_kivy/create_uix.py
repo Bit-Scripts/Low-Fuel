@@ -679,7 +679,7 @@ class kivyUi():
                         border_color=(0, 0, 0, 1)
                     )
                     self.RootWidget.add_widget(moins_cher)
-                    for point in range(len(self.points) - 1):
+                    for point in range(len(self.points)):
                         if self.points[point][0] == self.price_array[index].get("latitude") and self.points[point][1] == self.price_array[index].get("longitude"):
                             self.points[point][3] = color 
             case _:
@@ -708,7 +708,7 @@ class kivyUi():
                         border_color=(0, 0, 0, 1)
                     )
                     self.RootWidget.add_widget(moins_cher)
-                    for point in range(len(self.points) - 1):
+                    for point in range(len(self.points)):
                         if self.points[point][0] == self.price_array[index].get("latitude") and self.points[point][1] == self.price_array[index].get("longitude"):
                             self.points[point][3] = color 
 
