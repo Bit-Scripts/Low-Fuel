@@ -639,6 +639,7 @@ class kivyUi():
         points = []
         match len(self.price_array):
             case 0:
+                y = .63
                 moins_cher = ColoredLabel(
                     text='Pas de Station',
                     markup=True,
