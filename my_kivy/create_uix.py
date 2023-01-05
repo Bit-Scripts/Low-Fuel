@@ -552,7 +552,7 @@ class kivyUi():
             (self.location[0],
              self.location[1],
              f'[b]Point de départ[/b]\n{self.street_entry_post.title()}\n{self.post_code_entry_post} {self.city_entry_post.upper()}',
-             utils.get_color_from_hex('#8888FF'))
+             utils.get_color_from_hex('#3BAECF'))
         )
 
         i = 0
@@ -606,9 +606,9 @@ class kivyUi():
                 '\n' + text7 + '\n' + self.prices_txt + '\n' + proposed_services + '\n' + text8
 
             if self.sellpoint.name == self.parsejson.get_low_price_name():
-                self.color = utils.get_color_from_hex('#00FF44')
+                self.color = utils.get_color_from_hex('#000000')
             elif self.sellpoint.name == self.parsejson.get_high_price_name():
-                self.color = utils.get_color_from_hex('#FF0000')
+                self.color = utils.get_color_from_hex('#000000')
             else:
                 self.color = utils.get_color_from_hex('#000000')
 
@@ -677,22 +677,9 @@ class kivyUi():
                         border_color=(0, 0, 0, 1)
                     )
                     self.RootWidget.add_widget(moins_cher)
-                    subcolor = 1 - (index / 5)
-                    for point in self.points:
-                        if point[0] == self.price_array[index].get("latitude") and point[1] == self.price_array[index].get("longitude"):
-                            points.append(
-                                (point[0],
-                                point[1],
-                                point[2],
-                                [subcolor,subcolor,subcolor,1])
-                            )
-                        else:
-                            points.append(
-                                (point[0],
-                                point[1],
-                                point[2],
-                                point[3])
-                            )
+                    for point in range(len(self.points) - 1):
+                        if self.points[point][0] == self.price_array[index].get("latitude") and self.points[point][1] == self.price_array[index].get("longitude"):
+                            self.points[point][3] = color 
             case _:
                 for index in range(5):
                     y = .63 - (index * .14)
@@ -717,25 +704,11 @@ class kivyUi():
                         border_width=1.5,
                         border_color=(0, 0, 0, 1)
                     )
-                    subcolor = 1 - (index / 5)
                     self.RootWidget.add_widget(moins_cher)
-                    for point in self.points:
-                        if point[0] == self.price_array[index].get("latitude") and point[1] == self.price_array[index].get("longitude"):
-                            points.append(
-                                (point[0],
-                                point[1],
-                                point[2],
-                                [subcolor,subcolor,subcolor,1])
-                            )
-                        else:
-                            points.append(
-                                (point[0],
-                                point[1],
-                                point[2],
-                                point[3])
-                            )
+                    for point in range(len(self.points) - 1):
+                        if self.points[point][0] == self.price_array[index].get("latitude") and self.points[point][1] == self.price_array[index].get("longitude"):
+                            self.points[point][3] = color 
 
-        self.points = points
 
     def end_of_update_mapview(self):
         self.points
