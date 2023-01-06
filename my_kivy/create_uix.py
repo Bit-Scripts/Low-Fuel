@@ -44,6 +44,10 @@ class kivyUi():
 
         self.city_entry = ''
         self.city_btn_number = 0
+        
+        self.address_error_bool = False
+        self.essence_error_bool = False
+        self.radius_error_bool = False
 
         # let's add a Widget to this layout
         user_folder = os.path.expanduser("~")
@@ -365,6 +369,16 @@ class kivyUi():
         addresse_label,
         essence_label
     ):
+        self.radius_label = ColoredLabel(
+            text="Le rayon doit strictement\n      supérieur à zéro",
+            color=(0, 0, 0, 1),
+            background_color=(0.34509803921568627,
+                              0.34509803921568627, 0.34509803921568627, .65),
+            size_hint=(.4, .2),
+            pos_hint={'x': .3, 'y': .4},
+            border_width=1,
+            border_color=(0, 0, 0, 1)
+        )
 
         self.download_data_label = ColoredLabel(
             text="Récupération des données",
@@ -407,9 +421,16 @@ class kivyUi():
         addresse_label,
         essence_label
     ):
-
-        self.RootWidget.remove_widget(self.addresse_label)
-        self.RootWidget.remove_widget(self.essence_label)
+        if self.address_error_bool:
+            self.RootWidget.remove_widget(self.addresse_label)
+            self.address_error_bool = False
+        if self.essence_error_bool:
+            self.RootWidget.remove_widget(self.essence_label)
+            self.essence_error_bool = False
+        print(self.radius_error_bool)
+        if self.radius_error_bool:
+            self.RootWidget.remove_widget(self.radius_label)
+            self.radius_error_bool = False
         Clock.schedule_once(lambda dt: self.next_update(
             street_entry,
             post_code_entry,
@@ -419,7 +440,7 @@ class kivyUi():
             addresse_label,
             essence_label
         ),
-            0)
+            0.5)        
 
     def next_update(
         self,
@@ -450,21 +471,21 @@ class kivyUi():
         if self.locator.geocode(self.address) is None or (self.street_entry_post == '' or self.post_code_entry_post == '' or self.city_entry_post == ''):
             self.RootWidget.remove_widget(self.download_data_label)
             self.RootWidget.add_widget(self.addresse_label)
-            return None
-        else:
-            for c in list(self.RootWidget.children):
-                if c == self.addresse_label:
-                    self.RootWidget.remove_widget(self.addresse_label)
-            if self.fuel_entry_post != 'Gazole' and self.fuel_entry_post != 'SP98' and self.fuel_entry_post != 'SP95' and self.fuel_entry_post != 'GPLc' and self.fuel_entry_post != 'E10' and self.fuel_entry_post != 'E85':
+            self.address_error_bool = True
+            return
 
-                self.RootWidget.remove_widget(self.download_data_label)
-                self.RootWidget.add_widget(self.essence_label)
-                return None
-            else:
-                for c in list(self.RootWidget.children):
-                    if c == self.essence_label:
-                        self.RootWidget.remove_widget(self.essence_label)
+        if self.fuel_entry_post not in {'Gazole', 'SP98', 'SP95', 'GPLc', 'E10', 'E85'}:
+            self.RootWidget.remove_widget(self.download_data_label)
+            self.RootWidget.add_widget(self.essence_label)
+            self.essence_error_bool = True
+            return
 
+        if float(self.radius_entry_post.replace('','0').replace('km','').replace(' km','')) <= 0:
+            self.RootWidget.remove_widget(self.download_data_label)
+            self.RootWidget.add_widget(self.radius_label)
+            self.radius_error_bool = True
+            return
+                         
         self.idClient = uuid7str()
 
         self.user_address = AddressUser(
