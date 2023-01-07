@@ -1,5 +1,7 @@
+import re
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
 from kivy.graphics.context_instructions import Color
 from kivy.graphics.vertex_instructions import Rectangle, Line
 from kivy.properties import ListProperty, NumericProperty
@@ -98,3 +100,14 @@ class SmoothButtonMixin:
 
 class SmoothButton(SmoothButtonMixin, Button):
     pass
+
+
+class MaxLengthInput(TextInput):
+    max_length = 5
+    
+    pat = re.compile('[^0-9]')
+    def insert_text(self, substring, from_undo=False):
+        pat = self.pat
+        s = re.sub(pat, '', substring)
+        if len(self.text) <= self.max_length:
+            return super().insert_text(s, from_undo=from_undo)
