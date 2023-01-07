@@ -70,7 +70,8 @@ class uiStatic:
             border_width=1,
             border_color=(0, 0, 0, 1)
         )
-        self.street_entry = TextInput(
+        self.street_entry = TextInput( 
+            halign='center', multiline='false',
             size_hint=(.249, .05), pos_hint={'x': 0, 'y': .85})
         self.street_entry.bind(text=self.kU.on_text)
 
@@ -89,6 +90,7 @@ class uiStatic:
         
     def codePost2(self):
         self.post_code_entry = my_widgets.MaxLengthInput(
+            halign='center', multiline='false',
             size_hint=(.082333333333, .05),
             pos_hint={'x': .25, 'y': .85}
         )
@@ -161,6 +163,7 @@ class uiStatic:
             border_color=(0, 0, 0, 1)
         )
         self.radius_entry = TextInput(
+            halign='center', multiline='false',
             size_hint=(.16566667, .05), pos_hint={'x': .5, 'y': .85})
         self.radius_entry.bind(text=self.kU.on_text) 
 
