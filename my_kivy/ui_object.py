@@ -1,7 +1,8 @@
 
 from my_kivy import metier
 from my_kivy import my_widgets
-from my_kivy.create_uix import kivyUi
+from my_kivy.logic_uix import kivyUi
+from my_kivy import color_kivy as color
 from kivy_garden.mapview import MapView
 from kivy import utils
 from kivy.uix.textinput import TextInput
@@ -63,12 +64,12 @@ class uiStatic:
     def addresseStreet(self):
         self.street_label = my_widgets.ColoredLabel(
             text="    Numéro et\nNom de la Rue",
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.45098, 0.64706, 0.45098, 1),
+            color=color.Black,
+            background_color=color.Green_Background,
             size_hint=(.248, .098),
             pos_hint={'x': 0.0005, 'y': .9},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         self.street_entry = TextInput( 
             halign='center', multiline='false',
@@ -80,12 +81,12 @@ class uiStatic:
     def codePost(self):
         self.post_code_label = my_widgets.ColoredLabel(
             text=" Code\nPostal",
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.45098, 0.64706, 0.45098, 1),
+            color=color.Black,
+            background_color=color.Green_Background,
             size_hint=(.082333333333, .098),
             pos_hint={'x': .25, 'y': .9},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         
     def codePost2(self):
@@ -103,23 +104,23 @@ class uiStatic:
     def cityChoice(self):
         self.city_label = my_widgets.ColoredLabel(
             text="Ville",
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.45098, 0.64706, 0.45098, 1),
+            color=color.Black,
+            background_color=color.Green_Background,
             size_hint=(.16566667, .098),
             pos_hint={'x': .33333333, 'y': .9},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
     def btn0(self):
         self.btn_city0 = my_widgets.SmoothButton(
             text='vide',
             size_hint_y=None,
             height=22,
-            color=(0, 0, 0, 1),
+            color=color.Black,
             background_normal='',
-            background_color=(.906, .906, .906, 1),
-            border=(0, 0, 0, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.White_Beige,
+            border=(1,1,1,1),
+            border_color=color.Black,
             border_width=1
         )
         return self.btn_city0
@@ -129,11 +130,11 @@ class uiStatic:
             text='vide',
             size_hint_y=None,
             height=22,
-            color=(0, 0, 0, 1),
+            color=color.Black,
             background_normal='',
-            background_color=(.906, .906, .906, 1),
-            border=(0, 0, 0, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.White_Beige,
+            border=(1,1,1,1),
+            border_color=color.Black,
             border_width=1
         )
         
@@ -142,10 +143,10 @@ class uiStatic:
             text="Entrer le CP",
             size_hint=(.165666667, .048),
             pos_hint={'x': .33333333, 'y': .851},
-            color=(0, 0, 0, 1),
+            color=color.Black,
             background_normal='',
-            background_color=(.906, .906, .906, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.White_Beige,
+            border_color=color.Black,
             border_width=1
         )
         return self.city_button_DropDown
@@ -155,12 +156,12 @@ class uiStatic:
     def actionRadius(self):
         self.radius_label = my_widgets.ColoredLabel(
             text="     Rayon\nd'action(km)",
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.45098, 0.64706, 0.45098, 1),
+            color=color.Black,
+            background_color=color.Green_Background,
             size_hint=(.165666667, .098),
             pos_hint={'x': .5, 'y': .9},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         self.radius_entry = TextInput(
             halign='center', multiline='false',
@@ -173,39 +174,36 @@ class uiStatic:
     def errorAddresse(self):
         self.addresse_label_error = my_widgets.ColoredLabel(
             text="Adresse Non trouvé",
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.34509803921568627,
-                                0.34509803921568627, 0.34509803921568627, .65),
+            color=color.Black,
+            background_color=color.Transparent_Grey,
             size_hint=(.4, .2),
             pos_hint={'x': .3, 'y': .4},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         return self.addresse_label_error         
         #fuel choose: 
     def errorFuel(self):
         self.essence_label_error = my_widgets.ColoredLabel(
             text="Type d'essence non correct",
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.34509803921568627,
-                                0.34509803921568627, 0.34509803921568627, .65),
+            color=color.Black,
+            background_color=color.Transparent_Grey,
             size_hint=(.4, .2),
             pos_hint={'x': .3, 'y': .4},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         return self.essence_label_error
         #action radius:
     def errorRadius(self):
         self.radius_label_error = my_widgets.ColoredLabel(
             text="Le rayon doit strictement\n        supérieur à zéro",
-            color=(0, 0, 0, 1),
-            background_color=(0.34509803921568627,
-                                0.34509803921568627, 0.34509803921568627, .65),
+            color=color.Black,
+            background_color=color.Transparent_Grey,
             size_hint=(.4, .2),
             pos_hint={'x': .3, 'y': .4},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         return self.radius_label_error
         #DropDown Fuels:
@@ -217,10 +215,10 @@ class uiStatic:
             text='Gazole',
             size_hint_y=None,
             height=44,
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         self.btn_Gazole.bind(
@@ -230,10 +228,10 @@ class uiStatic:
             text='SP95',
             size_hint_y=None,
             height=44,
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         self.btn_SP95.bind(
@@ -242,10 +240,10 @@ class uiStatic:
             text='SP98',
             size_hint_y=None,
             height=44,
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         self.btn_SP98.bind(
@@ -255,10 +253,10 @@ class uiStatic:
             text='E85',
             size_hint_y=None,
             height=44,
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         self.btn_E85.bind(
@@ -268,10 +266,10 @@ class uiStatic:
             text='E10',
             size_hint_y=None,
             height=44,
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         self.btn_E10.bind(
@@ -281,10 +279,10 @@ class uiStatic:
             text='GPLc',
             size_hint_y=None,
             height=44,
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         self.btn_GPLc.bind(
@@ -295,10 +293,10 @@ class uiStatic:
             text="Carburant utilisé",
             size_hint=(.16666667, .1425),
             pos_hint={'x': .6666667, 'y': .855},
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2
         )
         return self.button_DropDown_Fuel
@@ -312,26 +310,24 @@ class uiStatic:
     def traitementText(self):
         self.download_data_label = my_widgets.ColoredLabel(
             text="Récupération des données",
-            color=(0, 0, 0, 1),
-            background_color=(0.34509803921568627,
-                                0.34509803921568627, 0.34509803921568627, .65),
+            color=color.Black,
+            background_color=color.Transparent_Grey,
             size_hint=(.4, .2),
             pos_hint={'x': .3, 'y': .4},
             border_width=1,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
         return self.download_data_label
 
     def loadingText(self):
         self.loading_label = my_widgets.ColoredLabel(
             text="Traitement des données",
-            color=(0, 0, 0, 1),
-            background_color=(0.34509803921568627,
-                                0.34509803921568627, 0.34509803921568627, .65),
+            color=color.Black,
+            background_color=color.Transparent_Grey,
             size_hint=(.4, .2),
             pos_hint={'x': .3, 'y': .4},
             border_width=1,
-            border_color=(0, 0, 0, 1))
+            border_color=color.Black)
         return self.loading_label
         
         #Submit Form
@@ -341,10 +337,10 @@ class uiStatic:
             text="Mettre à jour",
             size_hint=(.16416667, .1425),
             pos_hint={'x': .833333333, 'y': .855},
-            color=utils.get_color_from_hex('#000000'),
+            color=color.Black,
             background_normal='',
-            background_color=(0.45098, 0.64706, 0.45098, 1),
-            border_color=(0, 0, 0, 1),
+            background_color=color.Green_Background,
+            border_color=color.Black,
             border_width=2)
         self.submitButton.bind(on_press=lambda instance: self.kU.clearMap(self.street_entry.text, self.post_code_entry.text,
                         self.city_button_DropDown.text, self.radius_entry.text, self.button_DropDown_Fuel.text, self.addresse_label_error, self.essence_label_error, self.radius_label_error))
@@ -393,12 +389,12 @@ class uiStatic:
             markup=True,
             halign='center',
             valign='center',
-            color=utils.get_color_from_hex('#000000'),
-            background_color=(0.45098, 0.64706, 0.45098, 1),
+            color=color.Black,
+            background_color=color.Green_Background,
             size_hint=(.18536667, .1435),
             pos_hint={'x': .803333333, 'y': .63},
             border_width=1.5,
-            border_color=(0, 0, 0, 1)
+            border_color=color.Black
         )
     
     
@@ -408,10 +404,10 @@ class uiStatic:
                 markup=True,
                 halign='center',
                 valign='center',
-                color=utils.get_color_from_hex('#000000'),
-                background_color=utils.get_color_from_hex('#FFFFFF'),
+                color=color.Black,
+                background_color=color.White,
                 size_hint=(.18536667, .1435),
                 pos_hint={'x': .803333333, 'y': .63},
                 border_width=1.5,
-                border_color=(0, 0, 0, 1)
+                border_color=color.Black
             )

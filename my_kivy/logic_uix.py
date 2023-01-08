@@ -3,6 +3,7 @@ from domain.user import AddressUser
 from domain.logic import address_to_coord
 from domain.data import SellPoint
 from my_kivy.metier import tmp_dir
+from my_kivy import color_kivy as Color
 from kivy.uix.label import Label
 from kivy.uix.dropdown import DropDown
 from kivy.uix.image import AsyncImage
@@ -56,31 +57,28 @@ class kivyUi():
         if not os.path.exists(self.tmp_dir):
             os.makedirs(self.tmp_dir)
         
-    #CALLING 
+    #Appel des méthodes de ma class: 
     #------------------------------------------------------------------        
         self.definitonNomAppNominatim()
         ''' 
-        self.on_text() Call from uiStatic
-        self.on_text_() Call from uiStatic
-        self.intermediate() Call from uiStatic.submit button
+        self.on_text() Call from uiStatic Réception des textes des inputs sauf code postal
+        self.on_text_() Call from uiStatic Réception des textes de l'input du code postal et son traitement
+
+        self.clearMap() Call from uiStatic.submit button
         Tempo entre les deux
-        self.next_intermediate() Call from self.intermediate()
+        self.clearErrorMessage() Call from self.clearMap()
         Tempo entre les deux
-        self.next_update() Call from self.next_intermediate()
+        self.form_to_api() Call from self.clearErrorMessage()
         Tempo entre les deux	     
-        self.near_updateMapView() Call from self.next_update()
+        self.message_to_run() Call from self.form_to_api()
         Tempo entre les deux	          
-        self.updateMapView() Call from self.near_updateMapView()
-        
-        1# self.updateMapView() premier appel d'une nouvelle méthode
-        self.updateMapView() Call from self.near_updateMapView()
-        self.list_low_price() Call from self.updateMapview()
-        self.createMarkerPopup() Call from self.list_low_price()
-        
-        2# updateMapView() deuxième appel d'une nouvelle méthode
-        Tempo entre les deux	
-        self.end_of_update_mapview()
-        self.changeViewOfMap()
+        self.tri_and_parse() Call from self.message_to_run()   -------------------------------------------
+                    |                                                                                    |
+                    |                                                                                    |
+                    |                                                                                    |
+        self.list_low_price() Call from self.tri_and_parse()                                       Tempo entre les deux
+        self.creation_points_on_MapView() Call from self.list_low_price()                          self.update_view_mapview()  Call from self.tri_and_parse()
+        self.createMarkerPopup() Call from self.creation_points_on_MapView()
        ''' 
 
         #Nom de l'appli à Novatim
@@ -93,7 +91,7 @@ class kivyUi():
     def on_text(self, instance, value):
         pass
 
-        #Réception des textes des inputs du code postale et son traitement
+        #Réception des textes des inputs du code postal et son traitement
         #------------------------------------------------------------------        
     def on_text_(self, instance, value):
         if value != '' and len(value) == 5 and (str(int(value)) == value or '0' + str(int(value)) == value):
@@ -182,7 +180,7 @@ class kivyUi():
         if self.radius_error_bool:
             self.RootWidget.remove_widget(radius_label_error)
             self.radius_error_bool = False
-        Clock.schedule_once(lambda dt: self.next_update(
+        Clock.schedule_once(lambda dt: self.form_to_api(
             street_entry,
             post_code_entry,
             city_entry,
@@ -196,7 +194,7 @@ class kivyUi():
 
         #Gestion résultat du formulaire et appel de l'api gouvernementale
         #------------------------------------------------------------------   
-    def next_update(
+    def form_to_api(
         self,
         street_entry,
         post_code_entry,
@@ -281,7 +279,7 @@ class kivyUi():
 
         self.RootWidget.remove_widget(self.download_data_label)
 
-        Clock.schedule_once(lambda dt: self.near_updateMapView(
+        Clock.schedule_once(lambda dt: self.message_to_run(
             self.street_entry_post,
             self.post_code_entry_post,
             self.city_entry_post
@@ -291,14 +289,14 @@ class kivyUi():
 
         #Ajout du message de début de traitement des infos récupérées
         #------------------------------------------------------------------   
-    def near_updateMapView(
+    def message_to_run(
         self,
         street_entry,
         post_code_entry,
         city_entry
     ):
         self.RootWidget.add_widget(self.loading_label)
-        Clock.schedule_once(lambda dt: self.updateMapView(
+        Clock.schedule_once(lambda dt: self.tri_and_parse(
             street_entry,
             post_code_entry,
             city_entry
@@ -306,9 +304,9 @@ class kivyUi():
             0
         )
 
-        #Tri des données et appel à la fonction qui traite les datas /parsedata.parse_json.py
+        #Tri des données et appel à la fonction qui traite les datas parsedata.parse_json.py
         #------------------------------------------------------------------   
-    def updateMapView(
+    def tri_and_parse(
         self,
         street_entry,
         post_code_entry,
@@ -332,7 +330,7 @@ class kivyUi():
             [self.location[0],
              self.location[1],
              f'[b]Point de départ[/b]\n{self.street_entry_post.title()}\n{self.post_code_entry_post} {self.city_entry_post.upper()}',
-             utils.get_color_from_hex('#3BAECF')]
+             Color.Blue]
         )
 
         i = 0
@@ -385,7 +383,7 @@ class kivyUi():
             data_text = text1 + '\n' + text2 + '\n' + text3 + '\n' + text5 + '\n' + text6 + \
                 '\n' + text7 + '\n' + self.prices_txt + '\n' + proposed_services + '\n' + text8
 
-            self.color = utils.get_color_from_hex('#000000')
+            self.color = Color.Black
 
             self.data_text = os.linesep.join(
                 [s for s in data_text.splitlines() if s])
@@ -397,10 +395,10 @@ class kivyUi():
                  self.color]
             )
         self.RootWidget.remove_widget(self.loading_label)
-        Clock.schedule_once(lambda dt: self.end_of_update_mapview(), 0)
+        Clock.schedule_once(lambda dt: self.update_view_mapview(), 0)
         self.list_low_price()
 
-        #Classement des datas et création des points sur la carte
+        #Classement des datas
         #------------------------------------------------------------------   
     def list_low_price(self):       
         self.price_array = []
@@ -412,7 +410,11 @@ class kivyUi():
                     self.price_array.append(price_list)
       
         self.price_array = sorted(self.price_array, key=lambda d: d["prix"])
-        
+        self.creation_points_on_MapView()
+
+        #Création des points sur la carte
+        #------------------------------------------------------------------  
+    def creation_points_on_MapView(self):
         if len(self.price_array) == 0:
             self.stationPoint = self.uiStatic.stationPoint0()
             self.floatLayout.add_widget(self.stationPoint)
@@ -422,11 +424,11 @@ class kivyUi():
 
                 text = f'[size=10][b]{self.price_array[index].get("name")}[/b]\n{self.price_array[index].get("address")}\n{self.price_array[index].get("text")}\n[/size]'
 
-                if   index == 0: color=utils.get_color_from_hex('#00FF00')
-                elif index == 1: color=utils.get_color_from_hex('#99FF00')
-                elif index == 2: color=utils.get_color_from_hex('#FFFF00')
-                elif index == 3: color=utils.get_color_from_hex('#FF9900')
-                elif index == 4: color=utils.get_color_from_hex('#FF0000')
+                if   index == 0: color=Color.Dark_Green
+                elif index == 1: color=Color.Light_Green
+                elif index == 2: color=Color.Yellow
+                elif index == 3: color=Color.Light_Red
+                elif index == 4: color=Color.Dark_Red
 
                 self.stationPoint = self.uiStatic.stationPoints1()
                 self.stationPoint.text=text
@@ -442,7 +444,7 @@ class kivyUi():
 
         #Affichage de la cartes centré sur l'adresse entrée par l'utilisateur
         #------------------------------------------------------------------   
-    def end_of_update_mapview(self):
+    def update_view_mapview(self):
         self.points
         self.mapview
         self.newLat = self.location[0]
