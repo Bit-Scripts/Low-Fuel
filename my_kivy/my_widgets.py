@@ -6,7 +6,8 @@ from kivy.graphics.context_instructions import Color
 from kivy.graphics.vertex_instructions import Rectangle, Line
 from kivy.properties import ListProperty, NumericProperty
 
-
+        #Ces classes Ajoutent des Attributs aux Widgets existants
+        #------------------------------------------------------------------   
 
 class ColoredBackgoundMixin:
     _color = None

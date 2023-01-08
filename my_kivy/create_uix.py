@@ -58,7 +58,7 @@ class kivyUi():
         
     #CALLING 
     #------------------------------------------------------------------        
-        self.gui_interface()
+        self.definitonNomAppNominatim()
         ''' 
         self.on_text() Call from uiStatic
         self.on_text_() Call from uiStatic
@@ -72,26 +72,29 @@ class kivyUi():
         Tempo entre les deux	          
         self.updateMapView() Call from self.near_updateMapView()
         
-        1# self.updateMapView() premier d'une nouvelle méthode
+        1# self.updateMapView() premier appel d'une nouvelle méthode
         self.updateMapView() Call from self.near_updateMapView()
         self.list_low_price() Call from self.updateMapview()
         self.createMarkerPopup() Call from self.list_low_price()
         
-        2# updateMapView() deuxième d'une nouvelle méthode
+        2# updateMapView() deuxième appel d'une nouvelle méthode
         Tempo entre les deux	
         self.end_of_update_mapview()
         self.changeViewOfMap()
        ''' 
-        
-    def gui_interface(self):
-        self.locator = Nominatim(user_agent="low-fuel") 
-        
-    def __enter__(self):
-        return self.name
 
+        #Nom de l'appli à Novatim
+        #------------------------------------------------------------------           
+    def definitonNomAppNominatim(self): 
+        self.locator = Nominatim(user_agent="low-fuel") 
+
+        #Réception des textes des inputs sauf code postal
+        #------------------------------------------------------------------    
     def on_text(self, instance, value):
         pass
-    
+
+        #Réception des textes des inputs du code postale et son traitement
+        #------------------------------------------------------------------        
     def on_text_(self, instance, value):
         if value != '' and len(value) == 5 and (str(int(value)) == value or '0' + str(int(value)) == value):
             nomi = pgeocode.Nominatim('fr')
@@ -119,7 +122,10 @@ class kivyUi():
         self.city_button_DropDown.bind(on_release=self.city_DropDown.open)
         self.city_DropDown.bind(on_select=lambda instance, x: setattr(self.city_button_DropDown, 'text', x))
     
-    def intermediate(
+
+        #Suppression des éléments sur la carte et gestion des messages
+        #------------------------------------------------------------------   
+    def clearMap(
         self,
         street_entry,
         post_code_entry,
@@ -141,7 +147,7 @@ class kivyUi():
         self.download_data_label = self.loadingText
         self.loading_label = self.traitementText
         self.RootWidget.add_widget(self.download_data_label)
-        Clock.schedule_once(lambda dt: self.next_intermediate(
+        Clock.schedule_once(lambda dt: self.clearErrorMessage(
             street_entry,
             post_code_entry,
             city_DropDown,
@@ -153,7 +159,10 @@ class kivyUi():
         ),
             0)
 
-    def next_intermediate(
+
+        #Retrait des Message d'erreur
+        #------------------------------------------------------------------   
+    def clearErrorMessage(
         self,
         street_entry,
         post_code_entry,
@@ -185,6 +194,8 @@ class kivyUi():
         ),
             0.5)        
 
+        #Gestion résultat du formulaire et appel de l'api gouvernementale
+        #------------------------------------------------------------------   
     def next_update(
         self,
         street_entry,
@@ -278,6 +289,8 @@ class kivyUi():
             0
         )
 
+        #Ajout du message de début de traitement des infos récupérées
+        #------------------------------------------------------------------   
     def near_updateMapView(
         self,
         street_entry,
@@ -293,6 +306,8 @@ class kivyUi():
             0
         )
 
+        #Tri des données et appel à la fonction qui traite les datas /parsedata.parse_json.py
+        #------------------------------------------------------------------   
     def updateMapView(
         self,
         street_entry,
@@ -370,12 +385,7 @@ class kivyUi():
             data_text = text1 + '\n' + text2 + '\n' + text3 + '\n' + text5 + '\n' + text6 + \
                 '\n' + text7 + '\n' + self.prices_txt + '\n' + proposed_services + '\n' + text8
 
-            if self.sellpoint.name == self.parsejson.get_low_price_name():
-                self.color = utils.get_color_from_hex('#000000')
-            elif self.sellpoint.name == self.parsejson.get_high_price_name():
-                self.color = utils.get_color_from_hex('#000000')
-            else:
-                self.color = utils.get_color_from_hex('#000000')
+            self.color = utils.get_color_from_hex('#000000')
 
             self.data_text = os.linesep.join(
                 [s for s in data_text.splitlines() if s])
@@ -390,6 +400,8 @@ class kivyUi():
         Clock.schedule_once(lambda dt: self.end_of_update_mapview(), 0)
         self.list_low_price()
 
+        #Classement des datas et création des points sur la carte
+        #------------------------------------------------------------------   
     def list_low_price(self):       
         self.price_array = []
         for sellpoint in self.my_sell_points:
@@ -428,18 +440,17 @@ class kivyUi():
         self.RootWidget.add_widget(self.floatLayout)
         self.createMarkerPopup(self.points)
 
-
+        #Affichage de la cartes centré sur l'adresse entrée par l'utilisateur
+        #------------------------------------------------------------------   
     def end_of_update_mapview(self):
         self.points
         self.mapview
         self.newLat = self.location[0]
         self.newLon = self.location[1]
-        self.changeViewOfMap()
-        
-
-    def changeViewOfMap(self):
         self.mapview.center_on(self.newLat, self.newLon)
 
+        #Ajout des Infos Bulles sur les Points
+        #------------------------------------------------------------------   
     def createMarkerPopup(self, points):
         self.points = points
         for point in self.points:

@@ -26,23 +26,12 @@ class ParseJson:
         self.domicile: client_location
         self.coord_domicile = (client_location.latitude, client_location.longitude)
         self.radius = client_location.radius
-        self.remove_old_source()  # func
         self.fuel_json = self.download_source()  # func
         self.latitudeStation = ""  # func
         self.longitudeStation = ""  # func
         self.sell_points: List[SellPoint] = list()  # valeur retourné
         self.low_price_name: str = ""
         self.high_price_name: str = ""
-
-    def remove_old_source(self):
-        pass
-        #with os.scandir(self.filePath) as entries:
-        #    for entry in entries:
-        #        file = str(entry)
-        #        if file.endswith('*.json'):
-        #            os.remove(entry)
-        
-        
 
     def download_source(self):
         downloaded_file = open(wget.download(self.url, out=(self.filePath + '/essence.json')))
@@ -131,11 +120,6 @@ class ParseJson:
             else:
                 price = "Pas de Carburant proposé"
             list_of_prices.append(price)
-            if self.fuel_json[first_data]["fields"]["prix_valeur"] < low_price:
-                self.low_price_name = nom
-                low_price = self.fuel_json[first_data]["fields"]["prix_valeur"]
-            if self.fuel_json[first_data]["fields"]["prix_valeur"] > high_price:
-                self.high_price_name = nom
             ensemble_services = []
             if "services_service" in list(self.fuel_json[first_data]["fields"].keys()):
                 services = self.fuel_json[first_data]["fields"]["services_service"]
@@ -157,9 +141,3 @@ class ParseJson:
             self.sell_points.append(sell_point)
             list_of_prices = []
         return self.sell_points
-    
-    def get_low_price_name(self):
-        return self.low_price_name
-    
-    def get_high_price_name(self):
-        return self.high_price_name

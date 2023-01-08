@@ -19,7 +19,8 @@ class RootWidget(FloatLayout):
         # make sure we aren't overriding any important functionality
         super(RootWidget, self).__init__(**kwargs)
         self.tmp_dir = tmp_dir()
-        uiStatic(self, self.tmp_dir)
+
+        uiStatic(self, self.tmp_dir) # Lancement d'une première fonction enchainant les autres
         
 
 class Low_Fuel(App):

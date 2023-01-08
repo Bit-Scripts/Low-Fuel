@@ -307,7 +307,7 @@ class uiStatic:
         self.button_DropDown_Fuel.bind(on_release=self.fuel_DropDown.open)
         self.fuel_DropDown.bind(on_select=lambda instance, x: setattr(self.button_DropDown_Fuel, 'text', x))
         
-        #Submit Form
+        #Message Requète vers Résultats
         #------------------------------------------------------------------         
     def traitementText(self):
         self.download_data_label = my_widgets.ColoredLabel(
@@ -346,7 +346,7 @@ class uiStatic:
             background_color=(0.45098, 0.64706, 0.45098, 1),
             border_color=(0, 0, 0, 1),
             border_width=2)
-        self.submitButton.bind(on_press=lambda instance: self.kU.intermediate(self.street_entry.text, self.post_code_entry.text,
+        self.submitButton.bind(on_press=lambda instance: self.kU.clearMap(self.street_entry.text, self.post_code_entry.text,
                         self.city_button_DropDown.text, self.radius_entry.text, self.button_DropDown_Fuel.text, self.addresse_label_error, self.essence_label_error, self.radius_label_error))
         #Logo Gif
         #------------------------------------------------------------------ 
