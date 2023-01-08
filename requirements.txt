@@ -8,8 +8,9 @@ pyinstaller
 requests
 kivy
 kivy-garden
-kivy-garden.mapview
 kivy_garden.graph
+--extra-index-url https://github.com/Bit-Scripts/mapview/archive/refs/heads/master.zip
+kivy_garden.mapview
 requests 
 pgeocode
 wheel
