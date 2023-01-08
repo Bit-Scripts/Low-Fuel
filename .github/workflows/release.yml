@@ -1,0 +1,70 @@
+name: Package Application with Pyinstaller
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish_on_linux:
+    runs-on: 'ubuntu-latest'
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.10
+
+    - run: pip install -r requirements.txt pyinstaller
+    - run: pyinstaller --clean Low-Fuel_Linux.spec --noconfirm 
+    # Optionally verify that it works (provided that it does not need user interaction)
+    - run: ./dist/low-fuel/low-fuel
+    - uses: actions/upload-artifact@v2
+      with:
+        path: dist/*
+
+  publish_on_win:
+    publish_on_linux:
+    runs-on: 'windows-latest'
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.10
+
+    - run: pip install -r requirements.txt pyinstaller
+    - run: pyinstaller --clean Low-Fuel_win.spec --noconfirm 
+    # Optionally verify that it works (provided that it does not need user interaction)
+    - run: ./dist/low-fuel/low-fuel
+    - uses: actions/upload-artifact@v2
+      with:
+        path: dist/*
+        
+  publish_on_mac:
+    runs-on: 'macos-latest'
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - run: pip install -r requirements.txt pyinstaller
+    - run: pyinstaller --clean Low-Fuel_macos.spec --noconfirm 
+    # Optionally verify that it works (provided that it does not need user interaction)
+    - run: ./dist/low-fuel/low-fuel
+      with:
+        path: dist/*
+    - uses: actions/upload-artifact@v2
+    - name: Copy $app_name_pretty app to Applications directory
+      command: cp -R $mount_path$app_name.app /Applications
+      when_string: $installer_type == 'app'
+    - name: Install $app_name_pretty pkg
+      command: sudo installer -package $mount_path$app_name.pkg -target $install_target
+      when_string: $installer_type == 'pkg'
+    - name: Unmount $app_name_pretty image
+      command: hdiutil detach $mount_path
